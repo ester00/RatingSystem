@@ -158,6 +158,7 @@ namespace RatingSystem
                 com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
                 com.ExecuteNonQuery();
                 con.Close();
+
                 UpdateDataIntoDatagrid();
             }
         }
