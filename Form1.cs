@@ -17,6 +17,32 @@ namespace RatingSystem
         SqlCommand com = new SqlCommand();
         public string Title { get; set; }
         public int Rating { get; set; }
+        static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
+        static int alarmCounter = 1;
+        static bool exitFlag = false;
+
+        // This is the method to run when the timer is raised.
+        private  void TimerEventProcessor(Object myObject,
+                                                EventArgs myEventArgs)
+        {
+            myTimer.Stop();
+
+            // Displays a message box asking whether to continue running the timer.
+            if (alarmCounter < 5)
+            {
+                // Restarts the timer and increments the counter.
+                var random = new Random();
+                var rndNumber = random.Next(0, dataGridView1.Rows.Count);
+                dataGridView1.Rows[rndNumber].Selected = true;
+                alarmCounter += 1;
+                myTimer.Enabled = true;
+            }
+            else
+            {
+                // Stops the timer.
+                exitFlag = true;
+            }
+        }
 
         public Form1()
         {
@@ -97,8 +123,23 @@ namespace RatingSystem
 
         private void LottoButton_Click_1(object sender, EventArgs e)
         {
-            Lotto popUpForm = new Lotto();
-            popUpForm.ShowDialog();
+            //Lotto popUpForm = new Lotto();
+            //popUpForm.ShowDialog();
+            dataGridView1.ClearSelection();
+
+            myTimer.Tick += new EventHandler(TimerEventProcessor);
+
+            // Sets the timer interval to 5 seconds.
+            myTimer.Interval = 500;
+            myTimer.Start();
+
+            while (exitFlag == false)
+            {
+                // Processes all the events in the queue.
+                Application.DoEvents();
+            }
+
+
         }
         #endregion
 

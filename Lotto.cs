@@ -17,7 +17,6 @@ namespace RatingSystem
         SqlCommand com = new SqlCommand();
         public string Title { get; set; }
         public int Rating { get; set; }
-        int nRow;
         public Lotto()
         {
             InitializeComponent();
