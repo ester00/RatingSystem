@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Data.Entity;
+using System.Web.UI.WebControls;
+using RatingSystem.GlobalConstants;
 
 namespace RatingSystem
 {
@@ -22,18 +25,19 @@ namespace RatingSystem
         static bool exitFlag = false;
 
         // This is the method to run when the timer is raised.
-        private  void TimerEventProcessor(Object myObject,
+        private void TimerEventProcessor(Object myObject,
                                                 EventArgs myEventArgs)
         {
             myTimer.Stop();
 
-            // Displays a message box asking whether to continue running the timer.
-            if (alarmCounter < 5)
+            if (alarmCounter < 30)
             {
                 // Restarts the timer and increments the counter.
                 var random = new Random();
                 var rndNumber = random.Next(0, dataGridView1.Rows.Count);
                 dataGridView1.Rows[rndNumber].Selected = true;
+
+                //logic before
                 alarmCounter += 1;
                 myTimer.Enabled = true;
             }
@@ -48,78 +52,15 @@ namespace RatingSystem
         {
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
-        }   
-
-        #region LOGIN
-        private void txtUserEnter(object sender, EventArgs e)
-        {
-            if (txtUsername.Text.Equals(@"Username"))
-            {
-                txtUsername.Text = "";
-            }
         }
-
-        private void txtUserLeave(object sender, EventArgs e)
-        {
-            if (txtUsername.Text.Equals(""))
-            {
-                txtUsername.Text = @"Username";
-            }
-        }
-
-        private void txtPassEnter(object sender, EventArgs e)
-        {
-            if(txtPassword.Text.Equals("Password"))
-            {
-                txtPassword.Text = "";
-            }
-        }
-
-        private void txtPassLeave(object sender, EventArgs e)
-        {
-            if (txtPassword.Text.Equals(""))
-            {
-                txtPassword.Text = "Password";
-            }
-        }
-
-        private void txtPassword_TextChanged(object sender, EventArgs e)
-        {
-            txtPassword.PasswordChar = '●';
-        }
-
-        private void LogInButton_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            com.Connection = con;
-            com.CommandText = "Select * from LOGIN";
-            SqlDataReader dr = com.ExecuteReader();
-            if (dr.Read())
-            {
-                if (txtUsername.Text.Equals(dr["username"]) && txtPassword.Text.Equals(dr["password"].ToString()))
-                {
-                    NewMovieBbutton.Enabled = true;
-                    LottoButton.Enabled = true;
-                    loginLabel.Text = "Login Succesfull";
-                    loginLabel.ForeColor = System.Drawing.Color.Green;
-                }
-                else
-                {
-                    loginLabel.Text = "Either your username or password is incorrect";
-                    loginLabel.ForeColor = System.Drawing.Color.Red;
-                }
-            }
-            con.Close();
-        }
-        #endregion
-
-        #region PopUpForms
+        #region NewMovie
         private void NewMovieBbutton_Click(object sender, EventArgs e)
         {
             NewMovie popUpForm = new NewMovie();
             popUpForm.ShowDialog();
             UpdateDataIntoDatagrid();
         }
+        #endregion
 
         private void LottoButton_Click_1(object sender, EventArgs e)
         {
@@ -130,79 +71,81 @@ namespace RatingSystem
             myTimer.Tick += new EventHandler(TimerEventProcessor);
 
             // Sets the timer interval to 5 seconds.
-            myTimer.Interval = 500;
+            myTimer.Interval = 1000;
             myTimer.Start();
 
             while (exitFlag == false)
             {
-                // Processes all the events in the queue.
                 Application.DoEvents();
+                dataGridView1.ClearSelection();
+
             }
-
-
         }
-        #endregion
 
         private void UpdateDataIntoDatagrid()
         {
-            SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM MOVIES", con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True");
-            DataSet ds = new DataSet();
-            da.Fill(ds, "MOVIES");
-            dataGridView1.DataSource = ds.Tables["MOVIES"].DefaultView;
+            using (var db = new MovieRatingsEntities1())
+            {
+                dataGridView1.DataSource = db.MOVIES.ToList();
+                db.SaveChanges();
+            }
         }
 
         public void Form1_Load(object sender, EventArgs e)
         {
             UpdateDataIntoDatagrid();
-
-            DataGridViewButtonColumn RateButton = new DataGridViewButtonColumn();
-            RateButton.Name = "Rate";
-            RateButton.HeaderText = "Rate";
-            RateButton.Text = "Rate";
-            RateButton.UseColumnTextForButtonValue = true;
-            this.dataGridView1.Columns.Add(RateButton);
-
-            DataGridViewButtonColumn DeleteButton = new DataGridViewButtonColumn();
-            DeleteButton.Name = "Delete";
-            DeleteButton.HeaderText = "Delete";
-            DeleteButton.Text = "Delete";
-            DeleteButton.UseColumnTextForButtonValue = true;
-            this.dataGridView1.Columns.Add(DeleteButton);
+            this.txtUsername.Text = LoginConstants.UserName;
         }
 
+        #region Rate/Delete
         public void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
-            if(e.ColumnIndex == dataGridView1.Columns["Rate"].Index)
-            { 
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                con = new SqlConnection(@"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True");
-                com = new SqlCommand();
-                com.Connection = con;
-                con.Open();
-                com = new SqlCommand("UPDATE MOVIES SET Ratings = ISNULL(Ratings, 0)+1 WHERE Title = @Title", con);
-                com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
-                com.ExecuteNonQuery();
-                con.Close();
-                UpdateDataIntoDatagrid();
+            if (e.ColumnIndex == dataGridView1.Columns["DeleteButton"].Index)
+            {
+                if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                  using (var db = new MovieRatingsEntities1())
+                  {
+                      DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                      con.Open();
+                      com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
+                      com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
+                      com.ExecuteNonQuery();
+
+                      db.SaveChanges();
+                      UpdateDataIntoDatagrid();
+                      con.Close();
+                  }
+                }
             }
 
-            if(e.ColumnIndex == dataGridView1.Columns["Delete"].Index)
-            { 
-                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                con = new SqlConnection(@"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True");
-                com = new SqlCommand();
-                com.Connection = con;
-                con.Open();
-                com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
-                com.CommandType = CommandType.Text;
-                com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
-                com.ExecuteNonQuery();
-                con.Close();
-
-                UpdateDataIntoDatagrid();
+            if (e.ColumnIndex == dataGridView1.Columns["RateButton"].Index)
+            {
+                using (var db = new MovieRatingsEntities1())
+                {
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    con.Open();
+                    com = new SqlCommand("UPDATE MOVIES SET Ratings = ISNULL(Ratings, 0)+1 WHERE Title = @Title", con);
+                    com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
+                    com.ExecuteNonQuery();
+                    con.Close();
+                    UpdateDataIntoDatagrid();
+                }
             }
         }
+        #endregion
+
+        #region LogOut
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            LoginPage LP = new LoginPage();
+            LP.ShowDialog();
+        }
+        #endregion
     }
-}
-    
+} 
+
+
+
