@@ -40,6 +40,8 @@ namespace RatingSystem
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.DAButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -50,9 +52,9 @@ namespace RatingSystem
             this.RegisterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RegisterButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RegisterButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.RegisterButton.Location = new System.Drawing.Point(66, 466);
+            this.RegisterButton.Location = new System.Drawing.Point(66, 453);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(359, 45);
+            this.RegisterButton.Size = new System.Drawing.Size(175, 45);
             this.RegisterButton.TabIndex = 36;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = false;
@@ -62,7 +64,7 @@ namespace RatingSystem
             // 
             this.loginLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loginLabel.ForeColor = System.Drawing.Color.White;
-            this.loginLabel.Location = new System.Drawing.Point(66, 322);
+            this.loginLabel.Location = new System.Drawing.Point(66, 312);
             this.loginLabel.Name = "loginLabel";
             this.loginLabel.Size = new System.Drawing.Size(359, 59);
             this.loginLabel.TabIndex = 35;
@@ -74,7 +76,7 @@ namespace RatingSystem
             this.LogInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogInButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LogInButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.LogInButton.Location = new System.Drawing.Point(66, 394);
+            this.LogInButton.Location = new System.Drawing.Point(66, 389);
             this.LogInButton.Name = "LogInButton";
             this.LogInButton.Size = new System.Drawing.Size(359, 45);
             this.LogInButton.TabIndex = 34;
@@ -161,6 +163,32 @@ namespace RatingSystem
             this.panel1.Size = new System.Drawing.Size(300, 3);
             this.panel1.TabIndex = 39;
             // 
+            // DAButton
+            // 
+            this.DAButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(50)))), ((int)(((byte)(63)))));
+            this.DAButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DAButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DAButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.DAButton.Location = new System.Drawing.Point(247, 453);
+            this.DAButton.Name = "DAButton";
+            this.DAButton.Size = new System.Drawing.Size(178, 45);
+            this.DAButton.TabIndex = 40;
+            this.DAButton.Text = "Delete Account";
+            this.DAButton.UseVisualStyleBackColor = false;
+            this.DAButton.Click += new System.EventHandler(this.DAButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label2.Location = new System.Drawing.Point(386, 257);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 29);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "👁";
+            this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            // 
             // LoginPage
             // 
             this.AcceptButton = this.LogInButton;
@@ -168,6 +196,8 @@ namespace RatingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
             this.ClientSize = new System.Drawing.Size(504, 566);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.DAButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label1);
@@ -179,8 +209,8 @@ namespace RatingSystem
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtUsername);
             this.Name = "LoginPage";
+            this.ShowIcon = false;
             this.Text = "LoginPage";
-            this.Load += new System.EventHandler(this.LoginPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -199,5 +229,7 @@ namespace RatingSystem
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button DAButton;
+        private System.Windows.Forms.Label label2;
     }
 }

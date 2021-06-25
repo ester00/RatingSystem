@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Entity;
 using System.Web.UI.WebControls;
-using RatingSystem.GlobalConstants;
 
 namespace RatingSystem
 {
@@ -24,26 +23,21 @@ namespace RatingSystem
         static int alarmCounter = 1;
         static bool exitFlag = false;
 
-        // This is the method to run when the timer is raised.
-        private void TimerEventProcessor(Object myObject,
-                                                EventArgs myEventArgs)
+        private void TimerEventProcessor(Object myObject,EventArgs myEventArgs)
         {
             myTimer.Stop();
 
-            if (alarmCounter < 30)
+            if (alarmCounter < 20)
             {
-                // Restarts the timer and increments the counter.
                 var random = new Random();
                 var rndNumber = random.Next(0, dataGridView1.Rows.Count);
                 dataGridView1.Rows[rndNumber].Selected = true;
 
-                //logic before
                 alarmCounter += 1;
                 myTimer.Enabled = true;
             }
             else
             {
-                // Stops the timer.
                 exitFlag = true;
             }
         }
@@ -53,69 +47,26 @@ namespace RatingSystem
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
         }
-        #region NewMovie
-        private void NewMovieBbutton_Click(object sender, EventArgs e)
-        {
-            NewMovie popUpForm = new NewMovie();
-            popUpForm.ShowDialog();
-            UpdateDataIntoDatagrid();
-        }
-        #endregion
 
-        private void LottoButton_Click_1(object sender, EventArgs e)
-        {
-            //Lotto popUpForm = new Lotto();
-            //popUpForm.ShowDialog();
-            dataGridView1.ClearSelection();
-
-            myTimer.Tick += new EventHandler(TimerEventProcessor);
-
-            // Sets the timer interval to 5 seconds.
-            myTimer.Interval = 1000;
-            myTimer.Start();
-
-            while (exitFlag == false)
-            {
-                Application.DoEvents();
-                dataGridView1.ClearSelection();
-
-            }
-        }
-
-        private void UpdateDataIntoDatagrid()
-        {
-            using (var db = new MovieRatingsEntities1())
-            {
-                dataGridView1.DataSource = db.MOVIES.ToList();
-                db.SaveChanges();
-            }
-        }
-
-        public void Form1_Load(object sender, EventArgs e)
-        {
-            UpdateDataIntoDatagrid();
-            this.txtUsername.Text = LoginConstants.UserName;
-        }
-
-        #region Rate/Delete
+        #region Rate/Delete/Edit
         public void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dataGridView1.Columns["DeleteButton"].Index)
             {
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                  using (var db = new MovieRatingsEntities1())
-                  {
-                      DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                      con.Open();
-                      com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
-                      com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
-                      com.ExecuteNonQuery();
+                    using (var db = new MovieRatingsEntities1())
+                    {
+                        DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                        con.Open();
+                        com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
+                        com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
+                        com.ExecuteNonQuery();
 
-                      db.SaveChanges();
-                      UpdateDataIntoDatagrid();
-                      con.Close();
-                  }
+                        db.SaveChanges();
+                        UpdateDataIntoDatagrid();
+                        con.Close();
+                    }
                 }
             }
 
@@ -132,11 +83,36 @@ namespace RatingSystem
                     UpdateDataIntoDatagrid();
                 }
             }
+
         }
         #endregion
 
-        #region LogOut
-        private void LogOutButton_Click(object sender, EventArgs e)
+        #region MenuStrip
+        private void newMovieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewMovie popUpForm = new NewMovie();
+            popUpForm.ShowDialog();
+            UpdateDataIntoDatagrid();
+        }
+
+        private void lottoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+
+            myTimer.Tick += new EventHandler(TimerEventProcessor);
+
+            myTimer.Interval = 500;
+            myTimer.Start();
+
+            while (exitFlag == false)
+            {
+                dataGridView1.ClearSelection();
+                Application.DoEvents();
+                dataGridView1.CurrentRow.Selected = true;
+            }
+        }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
 
@@ -144,8 +120,22 @@ namespace RatingSystem
             LP.ShowDialog();
         }
         #endregion
+
+        public void Form1_Load(object sender, EventArgs e)
+        {
+            UpdateDataIntoDatagrid();
+        }
+
+        private void UpdateDataIntoDatagrid()
+        {
+            using (var db = new MovieRatingsEntities1())
+            {
+                dataGridView1.DataSource = db.MOVIES.ToList();
+                db.SaveChanges();
+            }
+        }
     }
-} 
+}
 
 
 

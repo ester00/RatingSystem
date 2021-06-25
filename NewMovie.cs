@@ -25,7 +25,7 @@ namespace RatingSystem
         #region Genre ComboBox
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox1.Items.Add("-select-");
+            comboBox1.Items.Add("select");
             string[] items = 
             {
                 "Action",
@@ -51,12 +51,12 @@ namespace RatingSystem
             com.Parameters.Add(new SqlParameter("@Title", TitleTxt.Text));
             com.Parameters.Add(new SqlParameter("@Summary", SummaryTxt.Text));
             com.Parameters.Add(new SqlParameter("@Genre", comboBox1.Text));
-
             com.ExecuteNonQuery();
-
             this.Close();
+
         }
         #endregion
+
     }
 }
 

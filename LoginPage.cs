@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using RatingSystem.GlobalConstants;
 
 namespace RatingSystem
 {
@@ -18,31 +17,32 @@ namespace RatingSystem
         SqlCommand com = new SqlCommand();
         public string Title { get; set; }
         public int Rating { get; set; }
+
         public LoginPage()
         {
             InitializeComponent();
-            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
+            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True;MultipleActiveResultSets=True";
         }
 
         #region LogIn
         private void LogInButton_Click(object sender, EventArgs e)
         {
-            using (var db = new MovieRatingsEntities1())
+           using (var db = new MovieRatingsEntities1())
             {
+                int i = 0;
                 con.Open();
                 com.Connection = con;
-                com.CommandText = "Select * from LOGIN";
+                com.CommandText = "SELECT * FROM LOGIN";
                 SqlDataReader dr = com.ExecuteReader();
-                if (dr.Read())
+                while(dr.Read())
                 {
                     if (txtUsername.Text.Equals(dr["username"]) && txtPassword.Text.Equals(dr["password"].ToString()))
                     {
                         loginLabel.Text = "Login Succesfull.";
                         loginLabel.ForeColor = System.Drawing.Color.LightGreen;
 
-                        this.Visible= false;
+                        this.Visible = false;
                         Form1 f1 = new Form1();
-                        LoginConstants.UserName = this.txtUsername.Text;
                         f1.ShowDialog();
                     }
                     else
@@ -50,6 +50,7 @@ namespace RatingSystem
                         loginLabel.Text = "Either your username or password is incorrect.";
                         loginLabel.ForeColor = System.Drawing.Color.Red;
                     }
+                    i++;
                 }
                 con.Close();
             }
@@ -87,6 +88,10 @@ namespace RatingSystem
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
             txtPassword.PasswordChar = '●';
+        } 
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+            txtPassword.PasswordChar = default(char);
         }
         #endregion
 
@@ -97,17 +102,27 @@ namespace RatingSystem
             {
                 con.Open();
                 com.Connection = con;
-                com.CommandText = "Select * from LOGIN";
+                com.CommandText = "SELECT * FROM LOGIN";
                 SqlDataReader dr = com.ExecuteReader();
-                if (dr.Read())
+                if(dr.Read())
                 {
-                    if (!txtUsername.Text.Equals(dr["username"]))
+                    if (txtUsername.Text.Equals(dr["username"]))
                     {
-                        if (txtUsername.Text != "Username" && txtPassword.Text != "Password" && txtUsername.Text != "" && txtPassword.Text != "")
+                        loginLabel.Text = "This username already exists.";
+                        loginLabel.ForeColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        if (txtUsername.Text != "Username" && txtUsername.Text != "" && txtPassword.Text != "")
                         {
-                            db.LOGINs.Add(new LOGIN());
+                            com = new SqlCommand("INSERT INTO LOGIN (username, password) VALUES (@username, @password)", con);
+                            com.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
+                            com.Parameters.Add(new SqlParameter("@password", txtPassword.Text));
+                            com.ExecuteNonQuery();
+                            db.SaveChanges();
 
-                            Application.Run(new Form1());
+
+                            this.Visible = false;
                             Form1 f1 = new Form1();
                             f1.ShowDialog();
                         }
@@ -117,19 +132,46 @@ namespace RatingSystem
                             loginLabel.ForeColor = System.Drawing.Color.Red;
                         }
                     }
-                    else
-                    {
-                        loginLabel.Text = "This username already exists.";
-                        loginLabel.ForeColor = System.Drawing.Color.Red;
-                    }
                 }
+                con.Close();
             }
         }
         #endregion
 
-        private void LoginPage_Load(object sender, EventArgs e)
+        #region Delete Account
+       private void DAButton_Click(object sender, EventArgs e)
         {
+            using (var db = new MovieRatingsEntities1())
+            {
+                int i = 0;
+                con.Open();
+                com.Connection = con;
+                com.CommandText = "SELECT * FROM LOGIN";
+                SqlDataReader dr = com.ExecuteReader();
+                while(dr.Read())
+                {
+                    if (txtUsername.Text.Equals(dr["username"]) && txtPassword.Text.Equals(dr["password"].ToString()))
+                    {
+                        com = new SqlCommand("DELETE FROM LOGIN WHERE username = @username", con);
+                        com.Parameters.AddWithValue("@username", txtUsername.Text);
+                        com.ExecuteNonQuery();
 
+                        txtUsername.Text = "Username";
+                        txtPassword.Text = "Password";
+                        loginLabel.Text = "Account deleted succesfully.";
+                        loginLabel.ForeColor = System.Drawing.Color.LightGreen;
+                    }
+                    else
+                    {
+                        loginLabel.Text = "Couldn't find account.";
+                        loginLabel.ForeColor = System.Drawing.Color.Red;
+                    }
+                    i++;
+                }
+                con.Close();
+            }
         }
+        #endregion
     }
 }
+

@@ -80,7 +80,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GlobalConstants\LoginConstants.cs" />
     <Compile Include="LOGIN.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -89,12 +88,6 @@
     </Compile>
     <Compile Include="LoginPage.Designer.cs">
       <DependentUpon>LoginPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lotto.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Lotto.Designer.cs">
-      <DependentUpon>Lotto.cs</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -137,9 +130,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginPage.resx">
       <DependentUpon>LoginPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Lotto.resx">
-      <DependentUpon>Lotto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewMovie.resx">
       <DependentUpon>NewMovie.cs</DependentUpon>
