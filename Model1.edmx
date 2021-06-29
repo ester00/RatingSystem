@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MovieRatingsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MovieRatingsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LOGIN">
           <Key>
             <PropertyRef Name="username" />
@@ -14,19 +14,19 @@
         </EntityType>
         <EntityType Name="MOVIES">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
           </Key>
           <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Ratings" Type="varchar" MaxLength="250" />
           <Property Name="Summary" Type="varchar" MaxLength="250" />
-          <Property Name="Genre" Type="varchar" MaxLength="100" />
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Genre" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="MovieRatingsModelStoreContainer">
           <EntitySet Name="LOGIN" EntityType="Self.LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MOVIES" EntityType="Self.MOVIES" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MovieRatingsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -39,13 +39,12 @@
         </EntityType>
         <EntityType Name="MOVy">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
           </Key>
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Ratings" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Summary" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Genre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Genre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="MovieRatingsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="LOGINs" EntityType="Self.LOGIN" />
@@ -68,7 +67,7 @@
           <EntitySetMapping Name="MOVIES">
             <EntityTypeMapping TypeName="MovieRatingsModel.MOVy">
               <MappingFragment StoreEntitySet="MOVIES">
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Ratings" ColumnName="Ratings" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="Genre" ColumnName="Genre" />

@@ -131,16 +131,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MovieRatingsDataSet4.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieRatingsDataSet4.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="MovieRatingsDataSet5.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieRatingsDataSet5.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MOVy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -225,28 +215,6 @@
     <None Include="MovieRatingsDataSet3.xss">
       <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
     </None>
-    <None Include="MovieRatingsDataSet4.xsc">
-      <DependentUpon>MovieRatingsDataSet4.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet4.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MovieRatingsDataSet4.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MovieRatingsDataSet4.xss">
-      <DependentUpon>MovieRatingsDataSet4.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet5.xsc">
-      <DependentUpon>MovieRatingsDataSet5.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet5.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MovieRatingsDataSet5.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MovieRatingsDataSet5.xss">
-      <DependentUpon>MovieRatingsDataSet5.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Form1.datasource" />
     <None Include="Properties\DataSources\Lotto.datasource" />
@@ -255,12 +223,6 @@
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRow.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRowChangeEvent.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRowChangeEventHandler.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsDataSet1.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsDataSet2.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsDataSet3.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsDataSet4.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsDataSet5.datasource" />
-    <None Include="Properties\DataSources\MovieRatingsEntities1.datasource" />
     <None Include="Properties\DataSources\MOVy.datasource" />
     <None Include="Properties\DataSources\NewMovie.datasource" />
     <None Include="Properties\DataSources\Program.datasource" />
@@ -269,7 +231,6 @@
     <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\RatingSystem.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\RatingSystem.Properties.Settings.datasource" />
-    <None Include="Properties\DataSources\System.Data.Entity.DbModelBuilderVersionAttribute.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -325,9 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

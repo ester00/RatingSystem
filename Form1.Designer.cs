@@ -37,7 +37,18 @@ namespace RatingSystem
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.mOVIESTableAdapter = new RatingSystem.MovieRatingsDataSetTableAdapters.MOVIESTableAdapter();
+            this.movieRatingsDataSet1 = new RatingSystem.MovieRatingsDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RateButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DeleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.EditButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.mOVIESBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.movieRatingsDataSet2 = new RatingSystem.MovieRatingsDataSet2();
+            this.mOVIESBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loggedInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,26 +56,32 @@ namespace RatingSystem
             this.newMovieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lottoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.movieRatingsDataSet5 = new RatingSystem.MovieRatingsDataSet5();
-            this.mOVIESBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mOVIESTableAdapter = new RatingSystem.MovieRatingsDataSet5TableAdapters.MOVIESTableAdapter();
-            this.RateButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.EditButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DeleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.mOVIESTableAdapter1 = new RatingSystem.MovieRatingsDataSet2TableAdapters.MOVIESTableAdapter();
+            this.ratingsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.movieRatingsDataSet3 = new RatingSystem.MovieRatingsDataSet3();
+            this.mOVIEBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mOVIETableAdapter = new RatingSystem.MovieRatingsDataSet3TableAdapters.MOVIETableAdapter();
             this.mOVyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.movieRatingsEntities1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lOGINsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mOVIESDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.databaseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.changeTrackerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.configurationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mOVIESBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mOVIESBindingSource1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mOVIEBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mOVyBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsEntities1BindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // mOVIESTableAdapter
+            // 
+            this.mOVIESTableAdapter.ClearBeforeFill = true;
+            // 
+            // movieRatingsDataSet1
+            // 
+            this.movieRatingsDataSet1.DataSetName = "MovieRatingsDataSet";
+            this.movieRatingsDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // dataGridView1
             // 
@@ -86,15 +103,15 @@ namespace RatingSystem
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.titleDataGridViewTextBoxColumn,
+            this.Summary,
+            this.Genre,
+            this.ratingsDataGridViewTextBoxColumn,
             this.RateButton,
-            this.EditButton,
             this.DeleteButton,
-            this.lOGINsDataGridViewTextBoxColumn,
-            this.mOVIESDataGridViewTextBoxColumn,
-            this.databaseDataGridViewTextBoxColumn,
-            this.changeTrackerDataGridViewTextBoxColumn,
-            this.configurationDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.movieRatingsEntities1BindingSource;
+            this.EditButton});
+            this.dataGridView1.DataSource = this.mOVyBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(101)))), ((int)(((byte)(120)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -127,6 +144,79 @@ namespace RatingSystem
             this.dataGridView1.Size = new System.Drawing.Size(1276, 523);
             this.dataGridView1.TabIndex = 22;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ID.Width = 70;
+            // 
+            // Summary
+            // 
+            this.Summary.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Summary.DataPropertyName = "Summary";
+            this.Summary.HeaderText = "Summary";
+            this.Summary.MinimumWidth = 8;
+            this.Summary.Name = "Summary";
+            // 
+            // Genre
+            // 
+            this.Genre.DataPropertyName = "Genre";
+            this.Genre.HeaderText = "Genre";
+            this.Genre.MinimumWidth = 8;
+            this.Genre.Name = "Genre";
+            this.Genre.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Genre.Width = 80;
+            // 
+            // RateButton
+            // 
+            this.RateButton.DataPropertyName = "Title";
+            this.RateButton.FillWeight = 90F;
+            this.RateButton.HeaderText = "Rate";
+            this.RateButton.MinimumWidth = 8;
+            this.RateButton.Name = "RateButton";
+            this.RateButton.Text = "👍";
+            this.RateButton.UseColumnTextForButtonValue = true;
+            this.RateButton.Width = 60;
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.DataPropertyName = "Title";
+            this.DeleteButton.FillWeight = 90F;
+            this.DeleteButton.HeaderText = "Delete";
+            this.DeleteButton.MinimumWidth = 8;
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Text = "⌫";
+            this.DeleteButton.UseColumnTextForButtonValue = true;
+            this.DeleteButton.Width = 60;
+            // 
+            // EditButton
+            // 
+            this.EditButton.HeaderText = "Edit";
+            this.EditButton.MinimumWidth = 8;
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Text = "✎";
+            this.EditButton.UseColumnTextForButtonValue = true;
+            this.EditButton.Width = 60;
+            // 
+            // mOVIESBindingSource
+            // 
+            this.mOVIESBindingSource.DataMember = "MOVIES";
+            this.mOVIESBindingSource.DataSource = this.movieRatingsDataSet2;
+            // 
+            // movieRatingsDataSet2
+            // 
+            this.movieRatingsDataSet2.DataSetName = "MovieRatingsDataSet2";
+            this.movieRatingsDataSet2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // mOVIESBindingSource1
+            // 
+            this.mOVIESBindingSource1.DataMember = "MOVIES";
+            this.mOVIESBindingSource1.DataSource = this.movieRatingsDataSet1;
             // 
             // txtUsername
             // 
@@ -167,7 +257,7 @@ namespace RatingSystem
             this.logOutToolStripMenuItem1});
             this.loggedInToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.loggedInToolStripMenuItem.Name = "loggedInToolStripMenuItem";
-            this.loggedInToolStripMenuItem.Size = new System.Drawing.Size(145, 36);
+            this.loggedInToolStripMenuItem.Size = new System.Drawing.Size(145, 34);
             this.loggedInToolStripMenuItem.Text = "logged in:";
             // 
             // logOutToolStripMenuItem1
@@ -183,7 +273,7 @@ namespace RatingSystem
             // 
             this.newMovieToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.newMovieToolStripMenuItem.Name = "newMovieToolStripMenuItem";
-            this.newMovieToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
+            this.newMovieToolStripMenuItem.Size = new System.Drawing.Size(152, 34);
             this.newMovieToolStripMenuItem.Text = "new movie";
             this.newMovieToolStripMenuItem.Click += new System.EventHandler(this.newMovieToolStripMenuItem_Click);
             // 
@@ -191,7 +281,7 @@ namespace RatingSystem
             // 
             this.lottoToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lottoToolStripMenuItem.Name = "lottoToolStripMenuItem";
-            this.lottoToolStripMenuItem.Size = new System.Drawing.Size(82, 36);
+            this.lottoToolStripMenuItem.Size = new System.Drawing.Size(82, 34);
             this.lottoToolStripMenuItem.Text = "lotto";
             this.lottoToolStripMenuItem.Click += new System.EventHandler(this.lottoToolStripMenuItem_Click);
             // 
@@ -201,101 +291,43 @@ namespace RatingSystem
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // movieRatingsDataSet5
+            // mOVIESTableAdapter1
             // 
-            this.movieRatingsDataSet5.DataSetName = "MovieRatingsDataSet5";
-            this.movieRatingsDataSet5.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.mOVIESTableAdapter1.ClearBeforeFill = true;
             // 
-            // mOVIESBindingSource
+            // ratingsDataGridViewTextBoxColumn
             // 
-            this.mOVIESBindingSource.DataMember = "MOVIES";
-            this.mOVIESBindingSource.DataSource = this.movieRatingsDataSet5;
+            this.ratingsDataGridViewTextBoxColumn.DataPropertyName = "Ratings";
+            this.ratingsDataGridViewTextBoxColumn.HeaderText = "Ratings";
+            this.ratingsDataGridViewTextBoxColumn.MinimumWidth = 8;
+            this.ratingsDataGridViewTextBoxColumn.Name = "ratingsDataGridViewTextBoxColumn";
+            this.ratingsDataGridViewTextBoxColumn.Width = 60;
             // 
-            // mOVIESTableAdapter
+            // titleDataGridViewTextBoxColumn
             // 
-            this.mOVIESTableAdapter.ClearBeforeFill = true;
+            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+            this.titleDataGridViewTextBoxColumn.MinimumWidth = 8;
+            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            this.titleDataGridViewTextBoxColumn.Width = 150;
             // 
-            // RateButton
+            // movieRatingsDataSet3
             // 
-            this.RateButton.DataPropertyName = "Title";
-            this.RateButton.FillWeight = 90F;
-            this.RateButton.HeaderText = "Rate";
-            this.RateButton.MinimumWidth = 8;
-            this.RateButton.Name = "RateButton";
-            this.RateButton.Text = "👍";
-            this.RateButton.UseColumnTextForButtonValue = true;
-            this.RateButton.Width = 60;
+            this.movieRatingsDataSet3.DataSetName = "MovieRatingsDataSet3";
+            this.movieRatingsDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // EditButton
+            // mOVIEBindingSource
             // 
-            this.EditButton.HeaderText = "Edit";
-            this.EditButton.MinimumWidth = 8;
-            this.EditButton.Name = "EditButton";
-            this.EditButton.Text = "✎";
-            this.EditButton.UseColumnTextForButtonValue = true;
-            this.EditButton.Width = 60;
+            this.mOVIEBindingSource.DataMember = "MOVIE";
+            this.mOVIEBindingSource.DataSource = this.movieRatingsDataSet3;
             // 
-            // DeleteButton
+            // mOVIETableAdapter
             // 
-            this.DeleteButton.DataPropertyName = "Title";
-            this.DeleteButton.FillWeight = 90F;
-            this.DeleteButton.HeaderText = "Delete";
-            this.DeleteButton.MinimumWidth = 8;
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Text = "⌫";
-            this.DeleteButton.UseColumnTextForButtonValue = true;
-            this.DeleteButton.Width = 60;
+            this.mOVIETableAdapter.ClearBeforeFill = true;
             // 
             // mOVyBindingSource
             // 
             this.mOVyBindingSource.DataSource = typeof(RatingSystem.MOVy);
-            // 
-            // movieRatingsEntities1BindingSource
-            // 
-            this.movieRatingsEntities1BindingSource.DataSource = typeof(RatingSystem.MovieRatingsEntities1);
-            // 
-            // lOGINsDataGridViewTextBoxColumn
-            // 
-            this.lOGINsDataGridViewTextBoxColumn.DataPropertyName = "LOGINs";
-            this.lOGINsDataGridViewTextBoxColumn.HeaderText = "LOGINs";
-            this.lOGINsDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.lOGINsDataGridViewTextBoxColumn.Name = "lOGINsDataGridViewTextBoxColumn";
-            this.lOGINsDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // mOVIESDataGridViewTextBoxColumn
-            // 
-            this.mOVIESDataGridViewTextBoxColumn.DataPropertyName = "MOVIES";
-            this.mOVIESDataGridViewTextBoxColumn.HeaderText = "MOVIES";
-            this.mOVIESDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.mOVIESDataGridViewTextBoxColumn.Name = "mOVIESDataGridViewTextBoxColumn";
-            this.mOVIESDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // databaseDataGridViewTextBoxColumn
-            // 
-            this.databaseDataGridViewTextBoxColumn.DataPropertyName = "Database";
-            this.databaseDataGridViewTextBoxColumn.HeaderText = "Database";
-            this.databaseDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.databaseDataGridViewTextBoxColumn.Name = "databaseDataGridViewTextBoxColumn";
-            this.databaseDataGridViewTextBoxColumn.ReadOnly = true;
-            this.databaseDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // changeTrackerDataGridViewTextBoxColumn
-            // 
-            this.changeTrackerDataGridViewTextBoxColumn.DataPropertyName = "ChangeTracker";
-            this.changeTrackerDataGridViewTextBoxColumn.HeaderText = "ChangeTracker";
-            this.changeTrackerDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.changeTrackerDataGridViewTextBoxColumn.Name = "changeTrackerDataGridViewTextBoxColumn";
-            this.changeTrackerDataGridViewTextBoxColumn.ReadOnly = true;
-            this.changeTrackerDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // configurationDataGridViewTextBoxColumn
-            // 
-            this.configurationDataGridViewTextBoxColumn.DataPropertyName = "Configuration";
-            this.configurationDataGridViewTextBoxColumn.HeaderText = "Configuration";
-            this.configurationDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.configurationDataGridViewTextBoxColumn.Name = "configurationDataGridViewTextBoxColumn";
-            this.configurationDataGridViewTextBoxColumn.ReadOnly = true;
-            this.configurationDataGridViewTextBoxColumn.Width = 150;
             // 
             // Form1
             // 
@@ -310,39 +342,47 @@ namespace RatingSystem
             this.ShowIcon = false;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mOVIESBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mOVIESBindingSource1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mOVIESBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mOVIEBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mOVyBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.movieRatingsEntities1BindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+        private MovieRatingsDataSetTableAdapters.MOVIESTableAdapter mOVIESTableAdapter;
+        private MovieRatingsDataSet movieRatingsDataSet1;
         private DataGridView dataGridView1;
+        private BindingSource mOVIESBindingSource1;
+        private BindingSource mOVyBindingSource;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem newMovieToolStripMenuItem;
         private ToolStripMenuItem lottoToolStripMenuItem;
         private TextBox txtUsername;
         private ContextMenuStrip contextMenuStrip1;
+        private MovieRatingsDataSet2 movieRatingsDataSet2;
+        private BindingSource mOVIESBindingSource;
+        private MovieRatingsDataSet2TableAdapters.MOVIESTableAdapter mOVIESTableAdapter1;
         private ToolStripMenuItem loggedInToolStripMenuItem;
         private ToolStripMenuItem logOutToolStripMenuItem1;
-        private MovieRatingsDataSet5 movieRatingsDataSet5;
-        private BindingSource mOVIESBindingSource;
-        private MovieRatingsDataSet5TableAdapters.MOVIESTableAdapter mOVIESTableAdapter;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn Summary;
+        private DataGridViewTextBoxColumn Genre;
         private DataGridViewButtonColumn RateButton;
         private DataGridViewButtonColumn EditButton;
         private DataGridViewButtonColumn DeleteButton;
-        private BindingSource mOVyBindingSource;
-        private DataGridViewTextBoxColumn lOGINsDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn mOVIESDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn databaseDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn changeTrackerDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn configurationDataGridViewTextBoxColumn;
-        private BindingSource movieRatingsEntities1BindingSource;
+        private DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn ratingsDataGridViewTextBoxColumn;
+        private MovieRatingsDataSet3 movieRatingsDataSet3;
+        private BindingSource mOVIEBindingSource;
+        private MovieRatingsDataSet3TableAdapters.MOVIETableAdapter mOVIETableAdapter;
     }
 }
 

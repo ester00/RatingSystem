@@ -126,8 +126,9 @@ namespace RatingSystem
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'movieRatingsDataSet5.MOVIES' table. You can move, or remove it, as needed.
-            this.mOVIESTableAdapter.Fill(this.movieRatingsDataSet5.MOVIES);
+            // TODO: This line of code loads data into the 'movieRatingsDataSet3.MOVIE' table. You can move, or remove it, as needed.
+            this.mOVIETableAdapter.Fill(this.movieRatingsDataSet3.MOVIE);
+            this.mOVIESTableAdapter1.Fill(this.movieRatingsDataSet2.MOVIES);
             UpdateDataIntoDatagrid();
             myTimer.Tick += new EventHandler(TimerEventProcessor);
             loggedInToolStripMenuItem.Text = constant.UserName;
