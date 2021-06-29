@@ -14,9 +14,10 @@ namespace RatingSystem
     
     public partial class MOVy
     {
-        public string Title { get; set; }
         public string Ratings { get; set; }
         public string Summary { get; set; }
         public string Genre { get; set; }
+        public string Title { get; set; }
+        public int ID { get; set; }
     }
 }
