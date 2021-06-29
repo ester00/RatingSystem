@@ -74,6 +74,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantClasses\constant.cs" />
+    <Compile Include="Edit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Edit.Designer.cs">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +121,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieRatingsDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MovieRatingsDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MovieRatingsDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MOVy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -125,6 +142,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Edit.resx">
+      <DependentUpon>Edit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,6 +192,28 @@
     </None>
     <None Include="MovieRatingsDataSet1.xss">
       <DependentUpon>MovieRatingsDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="MovieRatingsDataSet2.xsc">
+      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="MovieRatingsDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MovieRatingsDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MovieRatingsDataSet2.xss">
+      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="MovieRatingsDataSet3.xsc">
+      <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="MovieRatingsDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MovieRatingsDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MovieRatingsDataSet3.xss">
+      <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Form1.datasource" />

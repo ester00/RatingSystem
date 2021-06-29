@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Data.Entity;
-using System.Web.UI.WebControls;
 
 namespace RatingSystem
 {
@@ -17,8 +15,7 @@ namespace RatingSystem
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
-        public string Title { get; set; }
-        public int Rating { get; set; }
+
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
         static int alarmCounter = 1;
         static bool exitFlag = false;
@@ -27,8 +24,10 @@ namespace RatingSystem
         {
             myTimer.Stop();
 
-            if (alarmCounter < 20)
+            if (alarmCounter <= 20)
             {
+                dataGridView1.ClearSelection();
+
                 var random = new Random();
                 var rndNumber = random.Next(0, dataGridView1.Rows.Count);
                 dataGridView1.Rows[rndNumber].Selected = true;
@@ -60,9 +59,8 @@ namespace RatingSystem
                         DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                         con.Open();
                         com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
-                        com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
+                        com.Parameters.AddWithValue("@Title", row.Cells["titleDataGridViewTextBoxColumn"].Value);
                         com.ExecuteNonQuery();
-
                         db.SaveChanges();
                         UpdateDataIntoDatagrid();
                         con.Close();
@@ -77,17 +75,40 @@ namespace RatingSystem
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     con.Open();
                     com = new SqlCommand("UPDATE MOVIES SET Ratings = ISNULL(Ratings, 0)+1 WHERE Title = @Title", con);
-                    com.Parameters.AddWithValue("@Title", row.Cells["TitleColumn"].Value);
+                    com.Parameters.AddWithValue("@Title", row.Cells["titleDataGridViewTextBoxColumn"].Value);
                     com.ExecuteNonQuery();
                     con.Close();
                     UpdateDataIntoDatagrid();
                 }
             }
 
+            if (e.ColumnIndex == dataGridView1.Columns["EditButton"].Index)
+            {
+                Edit form = new Edit();
+                form.dgvr = dataGridView1.Rows[e.RowIndex];
+                form.ShowDialog();
+                UpdateDataIntoDatagrid();
+            }
+
         }
         #endregion
 
         #region MenuStrip
+        private void lottoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+            alarmCounter = 1;
+            exitFlag = false;
+
+            myTimer.Interval = 100;
+            myTimer.Start();
+
+            while (exitFlag == false)
+            {
+                Application.DoEvents();
+            }
+        }
+
         private void newMovieToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewMovie popUpForm = new NewMovie();
@@ -95,27 +116,9 @@ namespace RatingSystem
             UpdateDataIntoDatagrid();
         }
 
-        private void lottoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dataGridView1.ClearSelection();
-
-            myTimer.Tick += new EventHandler(TimerEventProcessor);
-
-            myTimer.Interval = 500;
-            myTimer.Start();
-
-            while (exitFlag == false)
-            {
-                dataGridView1.ClearSelection();
-                Application.DoEvents();
-                dataGridView1.CurrentRow.Selected = true;
-            }
-        }
-
-        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void logOutToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             this.Hide();
-
             LoginPage LP = new LoginPage();
             LP.ShowDialog();
         }
@@ -123,7 +126,12 @@ namespace RatingSystem
 
         public void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'movieRatingsDataSet3.MOVIE' table. You can move, or remove it, as needed.
+            this.mOVIETableAdapter.Fill(this.movieRatingsDataSet3.MOVIE);
+            this.mOVIESTableAdapter1.Fill(this.movieRatingsDataSet2.MOVIES);
             UpdateDataIntoDatagrid();
+            myTimer.Tick += new EventHandler(TimerEventProcessor);
+            loggedInToolStripMenuItem.Text = constant.UserName;
         }
 
         private void UpdateDataIntoDatagrid()

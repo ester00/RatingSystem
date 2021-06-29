@@ -42,6 +42,7 @@ namespace RatingSystem
                         loginLabel.ForeColor = System.Drawing.Color.LightGreen;
 
                         this.Visible = false;
+                        constant.UserName = this.txtUsername.Text;
                         Form1 f1 = new Form1();
                         f1.ShowDialog();
                     }
@@ -121,7 +122,7 @@ namespace RatingSystem
                             com.ExecuteNonQuery();
                             db.SaveChanges();
 
-
+                            constant.UserName = this.txtUsername.Text;
                             this.Visible = false;
                             Form1 f1 = new Form1();
                             f1.ShowDialog();
