@@ -96,45 +96,61 @@ namespace RatingSystem
         }
         #endregion
 
+        private bool IsValidPassword(string password)
+        {
+            return (password.Length >= 6 &&
+                    password.Any(char.IsUpper)
+                    );
+        }
+
         #region Register
         private void RegisterButton_Click(object sender, EventArgs e)
         {
-            using (var db = new MovieRatingsEntities1())
+            if (IsValidPassword(txtPassword.Text))
             {
-                con.Open();
-                com.Connection = con;
-                com.CommandText = "SELECT * FROM LOGIN";
-                SqlDataReader dr = com.ExecuteReader();
-                if(dr.Read())
+                using (var db = new MovieRatingsEntities1())
                 {
-                    if (txtUsername.Text.Equals(dr["username"]))
+                    con.Open();
+                    com.Connection = con;
+                    com.CommandText = "SELECT * FROM LOGIN";
+                    SqlDataReader dr = com.ExecuteReader();
+                    if (dr.Read())
                     {
-                        loginLabel.Text = "This username already exists.";
-                        loginLabel.ForeColor = System.Drawing.Color.Red;
-                    }
-                    else
-                    {
-                        if (txtUsername.Text != "Username" && txtUsername.Text != "" && txtPassword.Text != "")
+                        if (txtUsername.Text.Equals(dr["username"]))
                         {
-                            com = new SqlCommand("INSERT INTO LOGIN (username, password) VALUES (@username, @password)", con);
-                            com.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
-                            com.Parameters.Add(new SqlParameter("@password", txtPassword.Text));
-                            com.ExecuteNonQuery();
-                            db.SaveChanges();
-
-                            constant.UserName = this.txtUsername.Text;
-                            this.Visible = false;
-                            Form1 f1 = new Form1();
-                            f1.ShowDialog();
+                            loginLabel.Text = "This username already exists.";
+                            loginLabel.ForeColor = System.Drawing.Color.Red;
                         }
                         else
                         {
-                            loginLabel.Text = "Invalid username or password.";
-                            loginLabel.ForeColor = System.Drawing.Color.Red;
+                            if (txtUsername.Text != "Username" && txtUsername.Text != "" && txtPassword.Text != "")
+                            {
+                                com = new SqlCommand("INSERT INTO LOGIN (username, password) VALUES (@username, @password)", con);
+                                com.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
+                                com.Parameters.Add(new SqlParameter("@password", txtPassword.Text));
+                                com.ExecuteNonQuery();
+                                db.SaveChanges();
+
+                                constant.UserName = this.txtUsername.Text;
+                                this.Visible = false;
+                                Form1 f1 = new Form1();
+                                f1.ShowDialog();
+                            }
+                            else
+                            {
+                                loginLabel.Text = "Invalid username or password.";
+                                loginLabel.ForeColor = System.Drawing.Color.Red;
+                            }
                         }
                     }
+                    con.Close();
                 }
-                con.Close();
+            }
+            else
+            {
+                loginLabel.Text = "Invalid password!";
+                loginLabel.ForeColor = System.Drawing.Color.Red;
+                label3.ForeColor = System.Drawing.Color.Red;
             }
         }
         #endregion

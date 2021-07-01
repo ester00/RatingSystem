@@ -98,7 +98,7 @@ namespace RatingSystem
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SaveButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.SaveButton.Location = new System.Drawing.Point(180, 397);
+            this.SaveButton.Location = new System.Drawing.Point(180, 377);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(166, 41);
             this.SaveButton.TabIndex = 31;

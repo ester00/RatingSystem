@@ -42,6 +42,7 @@ namespace RatingSystem
             this.panel1 = new System.Windows.Forms.Panel();
             this.DAButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -52,9 +53,9 @@ namespace RatingSystem
             this.RegisterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RegisterButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RegisterButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.RegisterButton.Location = new System.Drawing.Point(66, 453);
+            this.RegisterButton.Location = new System.Drawing.Point(51, 468);
             this.RegisterButton.Name = "RegisterButton";
-            this.RegisterButton.Size = new System.Drawing.Size(175, 45);
+            this.RegisterButton.Size = new System.Drawing.Size(215, 45);
             this.RegisterButton.TabIndex = 36;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = false;
@@ -64,9 +65,9 @@ namespace RatingSystem
             // 
             this.loginLabel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loginLabel.ForeColor = System.Drawing.Color.White;
-            this.loginLabel.Location = new System.Drawing.Point(66, 312);
+            this.loginLabel.Location = new System.Drawing.Point(51, 529);
             this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(359, 59);
+            this.loginLabel.Size = new System.Drawing.Size(433, 53);
             this.loginLabel.TabIndex = 35;
             this.loginLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -76,9 +77,9 @@ namespace RatingSystem
             this.LogInButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogInButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.LogInButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.LogInButton.Location = new System.Drawing.Point(66, 389);
+            this.LogInButton.Location = new System.Drawing.Point(51, 404);
             this.LogInButton.Name = "LogInButton";
-            this.LogInButton.Size = new System.Drawing.Size(359, 45);
+            this.LogInButton.Size = new System.Drawing.Size(433, 45);
             this.LogInButton.TabIndex = 34;
             this.LogInButton.Text = "Log In";
             this.LogInButton.UseVisualStyleBackColor = false;
@@ -87,7 +88,7 @@ namespace RatingSystem
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(66, 248);
+            this.pictureBox2.Location = new System.Drawing.Point(55, 235);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(53, 48);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -100,9 +101,9 @@ namespace RatingSystem
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtPassword.ForeColor = System.Drawing.Color.FloralWhite;
-            this.txtPassword.Location = new System.Drawing.Point(125, 259);
+            this.txtPassword.Location = new System.Drawing.Point(130, 246);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(230, 28);
+            this.txtPassword.Size = new System.Drawing.Size(267, 28);
             this.txtPassword.TabIndex = 31;
             this.txtPassword.Text = "Password";
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
@@ -112,7 +113,7 @@ namespace RatingSystem
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(66, 158);
+            this.pictureBox1.Location = new System.Drawing.Point(55, 145);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(53, 49);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -125,9 +126,9 @@ namespace RatingSystem
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsername.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtUsername.ForeColor = System.Drawing.Color.FloralWhite;
-            this.txtUsername.Location = new System.Drawing.Point(125, 170);
+            this.txtUsername.Location = new System.Drawing.Point(133, 157);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(230, 28);
+            this.txtUsername.Size = new System.Drawing.Size(267, 28);
             this.txtUsername.TabIndex = 28;
             this.txtUsername.Text = "Username";
             this.txtUsername.Enter += new System.EventHandler(this.txtUserEnter);
@@ -141,7 +142,7 @@ namespace RatingSystem
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(172, 67);
+            this.label1.Location = new System.Drawing.Point(191, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 43);
             this.label1.TabIndex = 37;
@@ -150,17 +151,17 @@ namespace RatingSystem
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Location = new System.Drawing.Point(125, 204);
+            this.panel3.Location = new System.Drawing.Point(133, 191);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(300, 3);
+            this.panel3.Size = new System.Drawing.Size(337, 3);
             this.panel3.TabIndex = 38;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(125, 293);
+            this.panel1.Location = new System.Drawing.Point(130, 280);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 3);
+            this.panel1.Size = new System.Drawing.Size(337, 3);
             this.panel1.TabIndex = 39;
             // 
             // DAButton
@@ -169,9 +170,9 @@ namespace RatingSystem
             this.DAButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DAButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.DAButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.DAButton.Location = new System.Drawing.Point(247, 453);
+            this.DAButton.Location = new System.Drawing.Point(272, 468);
             this.DAButton.Name = "DAButton";
-            this.DAButton.Size = new System.Drawing.Size(178, 45);
+            this.DAButton.Size = new System.Drawing.Size(212, 45);
             this.DAButton.TabIndex = 40;
             this.DAButton.Text = "Delete Account";
             this.DAButton.UseVisualStyleBackColor = false;
@@ -182,12 +183,24 @@ namespace RatingSystem
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(386, 257);
+            this.label2.Location = new System.Drawing.Point(428, 244);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 29);
             this.label2.TabIndex = 41;
             this.label2.Text = "👁";
             this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(40, 305);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(470, 81);
+            this.label3.TabIndex = 42;
+            this.label3.Text = "Password must be at least 6 characters long and must contain at least one upper c" +
+    "ase letter.";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginPage
             // 
@@ -195,7 +208,8 @@ namespace RatingSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
-            this.ClientSize = new System.Drawing.Size(504, 566);
+            this.ClientSize = new System.Drawing.Size(522, 597);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DAButton);
             this.Controls.Add(this.panel1);
@@ -231,5 +245,6 @@ namespace RatingSystem
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button DAButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
