@@ -18,5 +18,6 @@ namespace RatingSystem
         public string Ratings { get; set; }
         public string Summary { get; set; }
         public string Genre { get; set; }
+        public int ID { get; set; }
     }
 }

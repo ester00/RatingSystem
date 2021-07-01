@@ -21,25 +21,7 @@ namespace RatingSystem
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
         }
-        #region Genre ComboBox
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            comboBox1.Items.Add("");
-            string[] items = 
-            {
-                "Action",
-                "Comedy",
-                "Drama",
-                "Fantas",
-                "Horror",
-                "Mystery",
-                "Romance",
-                "Thriller" 
-            };
-        }
-        #endregion
         
-        #region Add new movie button
         private void AddButton_Click(object sender, EventArgs e)
         {
             con.Open();
@@ -50,7 +32,6 @@ namespace RatingSystem
             com.ExecuteNonQuery();
             this.Close();
         }
-        #endregion
     }
 }
 

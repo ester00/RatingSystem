@@ -50,6 +50,7 @@ namespace RatingSystem
         #region Rate/Delete/Edit
         public void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int curMovieId = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
             if (e.ColumnIndex == dataGridView1.Columns["DeleteButton"].Index)
             {
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -58,8 +59,7 @@ namespace RatingSystem
                     {
                         DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                         con.Open();
-                        com = new SqlCommand("DELETE FROM MOVIES WHERE Title = @Title", con);
-                        com.Parameters.AddWithValue("@Title", row.Cells["titleDataGridViewTextBoxColumn"].Value);
+                        com = new SqlCommand($"DELETE FROM MOVIES WHERE ID = {curMovieId}", con);
                         com.ExecuteNonQuery();
                         db.SaveChanges();
                         UpdateDataIntoDatagrid();
@@ -74,8 +74,7 @@ namespace RatingSystem
                 {
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     con.Open();
-                    com = new SqlCommand("UPDATE MOVIES SET Ratings = ISNULL(Ratings, 0)+1 WHERE Title = @Title", con);
-                    com.Parameters.AddWithValue("@Title", row.Cells["titleDataGridViewTextBoxColumn"].Value);
+                    com = new SqlCommand($"UPDATE MOVIES SET Ratings = ISNULL(Ratings, 0)+1 WHERE ID = {curMovieId}", con);
                     com.ExecuteNonQuery();
                     con.Close();
                     UpdateDataIntoDatagrid();
@@ -126,8 +125,6 @@ namespace RatingSystem
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'movieRatingsDataSet3.MOVIE' table. You can move, or remove it, as needed.
-            this.mOVIETableAdapter.Fill(this.movieRatingsDataSet3.MOVIE);
             this.mOVIESTableAdapter1.Fill(this.movieRatingsDataSet2.MOVIES);
             UpdateDataIntoDatagrid();
             myTimer.Tick += new EventHandler(TimerEventProcessor);
@@ -142,8 +139,12 @@ namespace RatingSystem
                 db.SaveChanges();
             }
         }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePassword popUpForm = new ChangePassword();
+            popUpForm.ShowDialog();
+            UpdateDataIntoDatagrid();
+        }
     }
 }
-
-
-

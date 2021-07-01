@@ -35,12 +35,14 @@ namespace RatingSystem
             this.SummaryTxt = new System.Windows.Forms.TextBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.TitleLabel = new System.Windows.Forms.Label();
+            this.TitleTxt = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Action",
@@ -49,11 +51,10 @@ namespace RatingSystem
             "Fantasy",
             "Thriller",
             "Horror"});
-            this.comboBox1.Location = new System.Drawing.Point(205, 154);
+            this.comboBox1.Location = new System.Drawing.Point(205, 194);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(291, 28);
+            this.comboBox1.Size = new System.Drawing.Size(291, 29);
             this.comboBox1.TabIndex = 35;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -63,7 +64,7 @@ namespace RatingSystem
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(71, 150);
+            this.label4.Location = new System.Drawing.Point(71, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 32);
             this.label4.TabIndex = 34;
@@ -77,7 +78,7 @@ namespace RatingSystem
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(28, 212);
+            this.label3.Location = new System.Drawing.Point(28, 249);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 32);
             this.label3.TabIndex = 33;
@@ -85,7 +86,7 @@ namespace RatingSystem
             // 
             // SummaryTxt
             // 
-            this.SummaryTxt.Location = new System.Drawing.Point(205, 212);
+            this.SummaryTxt.Location = new System.Drawing.Point(205, 249);
             this.SummaryTxt.Multiline = true;
             this.SummaryTxt.Name = "SummaryTxt";
             this.SummaryTxt.Size = new System.Drawing.Size(291, 101);
@@ -97,7 +98,7 @@ namespace RatingSystem
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SaveButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.SaveButton.Location = new System.Drawing.Point(182, 344);
+            this.SaveButton.Location = new System.Drawing.Point(180, 397);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(166, 41);
             this.SaveButton.TabIndex = 31;
@@ -113,25 +114,32 @@ namespace RatingSystem
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(152, 37);
+            this.label1.Location = new System.Drawing.Point(172, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(208, 43);
             this.label1.TabIndex = 28;
             this.label1.Text = "Edit Movie:";
             // 
-            // TitleLabel
+            // TitleTxt
             // 
-            this.TitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TitleTxt.Location = new System.Drawing.Point(205, 136);
+            this.TitleTxt.Name = "TitleTxt";
+            this.TitleTxt.Size = new System.Drawing.Size(291, 26);
+            this.TitleTxt.TabIndex = 38;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Font = new System.Drawing.Font("Arial", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TitleLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.TitleLabel.Location = new System.Drawing.Point(244, 80);
-            this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(0, 29);
-            this.TitleLabel.TabIndex = 37;
-            this.TitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(98, 136);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 32);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "Title:";
             // 
             // Edit
             // 
@@ -139,8 +147,9 @@ namespace RatingSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
-            this.ClientSize = new System.Drawing.Size(524, 436);
-            this.Controls.Add(this.TitleLabel);
+            this.ClientSize = new System.Drawing.Size(524, 466);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.TitleTxt);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -163,6 +172,7 @@ namespace RatingSystem
         private System.Windows.Forms.TextBox SummaryTxt;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label TitleLabel;
+        private System.Windows.Forms.TextBox TitleTxt;
+        private System.Windows.Forms.Label label2;
     }
 }
