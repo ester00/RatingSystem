@@ -12,12 +12,15 @@ namespace RatingSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class MOVy
+    public partial class Movy
     {
         public string Title { get; set; }
         public string Ratings { get; set; }
         public string Summary { get; set; }
         public string Genre { get; set; }
         public int ID { get; set; }
+        public Nullable<int> UsersId { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

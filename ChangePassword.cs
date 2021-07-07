@@ -35,7 +35,7 @@ namespace RatingSystem
                 {
                     if (textOldPass.Text.Equals(dr["password"].ToString()))
                     {
-                        using (var db = new MovieRatingsEntities1())
+                        using (var db = new MovieRatingsEntities2())
                         {
                             com = new SqlCommand($"UPDATE LOGIN SET Password = @NewPassword WHERE Password = @Password", con);
                             com.Parameters.AddWithValue("@Password", textOldPass.Text);

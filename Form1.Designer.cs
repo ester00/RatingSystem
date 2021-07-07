@@ -40,7 +40,7 @@ namespace RatingSystem
             this.mOVIESTableAdapter = new RatingSystem.MovieRatingsDataSetTableAdapters.MOVIESTableAdapter();
             this.movieRatingsDataSet1 = new RatingSystem.MovieRatingsDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,9 +56,11 @@ namespace RatingSystem
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.loggedInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.newMovieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lottoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mOVIESTableAdapter1 = new RatingSystem.MovieRatingsDataSet2TableAdapters.MOVIESTableAdapter();
             this.movieRatingsDataSet3 = new RatingSystem.MovieRatingsDataSet3();
@@ -86,6 +88,8 @@ namespace RatingSystem
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(101)))), ((int)(((byte)(120)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -104,7 +108,7 @@ namespace RatingSystem
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
+            this.dataGridViewTextBoxColumn1,
             this.titleDataGridViewTextBoxColumn,
             this.Summary,
             this.Genre,
@@ -121,7 +125,6 @@ namespace RatingSystem
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(0, 43);
             this.dataGridView1.Name = "dataGridView1";
@@ -145,17 +148,17 @@ namespace RatingSystem
             this.dataGridView1.Size = new System.Drawing.Size(1276, 523);
             this.dataGridView1.TabIndex = 22;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
-            // ID
+            // dataGridViewTextBoxColumn1
             // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 8;
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ID.Visible = false;
-            this.ID.Width = 70;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 150;
             // 
             // titleDataGridViewTextBoxColumn
             // 
@@ -163,6 +166,7 @@ namespace RatingSystem
             this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
             this.titleDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+            this.titleDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.titleDataGridViewTextBoxColumn.Width = 150;
             // 
             // Summary
@@ -172,6 +176,7 @@ namespace RatingSystem
             this.Summary.HeaderText = "Summary";
             this.Summary.MinimumWidth = 8;
             this.Summary.Name = "Summary";
+            this.Summary.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // Genre
             // 
@@ -179,7 +184,7 @@ namespace RatingSystem
             this.Genre.HeaderText = "Genre";
             this.Genre.MinimumWidth = 8;
             this.Genre.Name = "Genre";
-            this.Genre.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Genre.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Genre.Width = 80;
             // 
             // ratingsDataGridViewTextBoxColumn
@@ -188,6 +193,7 @@ namespace RatingSystem
             this.ratingsDataGridViewTextBoxColumn.HeaderText = "Ratings";
             this.ratingsDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.ratingsDataGridViewTextBoxColumn.Name = "ratingsDataGridViewTextBoxColumn";
+            this.ratingsDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ratingsDataGridViewTextBoxColumn.Width = 60;
             // 
             // RateButton
@@ -197,6 +203,8 @@ namespace RatingSystem
             this.RateButton.HeaderText = "Rate";
             this.RateButton.MinimumWidth = 8;
             this.RateButton.Name = "RateButton";
+            this.RateButton.ReadOnly = true;
+            this.RateButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.RateButton.Text = "👍";
             this.RateButton.UseColumnTextForButtonValue = true;
             this.RateButton.Width = 60;
@@ -206,6 +214,7 @@ namespace RatingSystem
             this.EditButton.HeaderText = "Edit";
             this.EditButton.MinimumWidth = 8;
             this.EditButton.Name = "EditButton";
+            this.EditButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.EditButton.Text = "✎";
             this.EditButton.UseColumnTextForButtonValue = true;
             this.EditButton.Width = 60;
@@ -217,13 +226,14 @@ namespace RatingSystem
             this.DeleteButton.HeaderText = "Delete";
             this.DeleteButton.MinimumWidth = 8;
             this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DeleteButton.Text = "⌫";
             this.DeleteButton.UseColumnTextForButtonValue = true;
             this.DeleteButton.Width = 60;
             // 
             // mOVyBindingSource
             // 
-            this.mOVyBindingSource.DataSource = typeof(RatingSystem.MOVy);
+            this.mOVyBindingSource.DataSource = typeof(RatingSystem.Movy);
             // 
             // mOVIESBindingSource
             // 
@@ -265,7 +275,8 @@ namespace RatingSystem
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loggedInToolStripMenuItem,
             this.newMovieToolStripMenuItem,
-            this.lottoToolStripMenuItem});
+            this.lottoToolStripMenuItem,
+            this.logInToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -277,45 +288,64 @@ namespace RatingSystem
             // 
             this.loggedInToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changePasswordToolStripMenuItem,
+            this.deleteAccountToolStripMenuItem,
             this.logOutToolStripMenuItem1});
             this.loggedInToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.loggedInToolStripMenuItem.Name = "loggedInToolStripMenuItem";
-            this.loggedInToolStripMenuItem.Size = new System.Drawing.Size(145, 36);
-            this.loggedInToolStripMenuItem.Text = "logged in:";
+            this.loggedInToolStripMenuItem.Size = new System.Drawing.Size(141, 36);
+            this.loggedInToolStripMenuItem.Text = "username";
             // 
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(50)))), ((int)(((byte)(63)))));
             this.changePasswordToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(319, 38);
-            this.changePasswordToolStripMenuItem.Text = "change password";
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.changePasswordToolStripMenuItem.Text = "Change Password";
             this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
+            // 
+            // deleteAccountToolStripMenuItem
+            // 
+            this.deleteAccountToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(50)))), ((int)(((byte)(63)))));
+            this.deleteAccountToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.deleteAccountToolStripMenuItem.Name = "deleteAccountToolStripMenuItem";
+            this.deleteAccountToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.deleteAccountToolStripMenuItem.Text = "Delete Account";
+            this.deleteAccountToolStripMenuItem.Click += new System.EventHandler(this.deleteAccountToolStripMenuItem_Click);
             // 
             // logOutToolStripMenuItem1
             // 
             this.logOutToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(50)))), ((int)(((byte)(63)))));
             this.logOutToolStripMenuItem1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.logOutToolStripMenuItem1.Name = "logOutToolStripMenuItem1";
-            this.logOutToolStripMenuItem1.Size = new System.Drawing.Size(319, 38);
-            this.logOutToolStripMenuItem1.Text = "log out";
+            this.logOutToolStripMenuItem1.Size = new System.Drawing.Size(324, 38);
+            this.logOutToolStripMenuItem1.Text = "Log Out";
             this.logOutToolStripMenuItem1.Click += new System.EventHandler(this.logOutToolStripMenuItem1_Click_1);
             // 
             // newMovieToolStripMenuItem
             // 
             this.newMovieToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.newMovieToolStripMenuItem.Name = "newMovieToolStripMenuItem";
-            this.newMovieToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
-            this.newMovieToolStripMenuItem.Text = "new movie";
+            this.newMovieToolStripMenuItem.Size = new System.Drawing.Size(154, 36);
+            this.newMovieToolStripMenuItem.Text = "New Movie";
             this.newMovieToolStripMenuItem.Click += new System.EventHandler(this.newMovieToolStripMenuItem_Click);
             // 
             // lottoToolStripMenuItem
             // 
             this.lottoToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lottoToolStripMenuItem.Name = "lottoToolStripMenuItem";
-            this.lottoToolStripMenuItem.Size = new System.Drawing.Size(82, 36);
-            this.lottoToolStripMenuItem.Text = "lotto";
+            this.lottoToolStripMenuItem.Size = new System.Drawing.Size(90, 36);
+            this.lottoToolStripMenuItem.Text = "Lotto";
             this.lottoToolStripMenuItem.Click += new System.EventHandler(this.lottoToolStripMenuItem_Click);
+            // 
+            // logInToolStripMenuItem
+            // 
+            this.logInToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.logInToolStripMenuItem.Name = "logInToolStripMenuItem";
+            this.logInToolStripMenuItem.Size = new System.Drawing.Size(103, 36);
+            this.logInToolStripMenuItem.Text = "Log In";
+            this.logInToolStripMenuItem.Visible = false;
+            this.logInToolStripMenuItem.Click += new System.EventHandler(this.logInToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -353,6 +383,7 @@ namespace RatingSystem
             this.Name = "Form1";
             this.ShowIcon = false;
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.movieRatingsDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -387,7 +418,10 @@ namespace RatingSystem
         private MovieRatingsDataSet3 movieRatingsDataSet3;
         private BindingSource mOVIEBindingSource;
         private MovieRatingsDataSet3TableAdapters.MOVIETableAdapter mOVIETableAdapter;
-        private DataGridViewTextBoxColumn ID;
+        private ToolStripMenuItem changePasswordToolStripMenuItem;
+        private ToolStripMenuItem deleteAccountToolStripMenuItem;
+        private ToolStripMenuItem logInToolStripMenuItem;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Summary;
         private DataGridViewTextBoxColumn Genre;
@@ -395,7 +429,6 @@ namespace RatingSystem
         private DataGridViewButtonColumn RateButton;
         private DataGridViewButtonColumn EditButton;
         private DataGridViewButtonColumn DeleteButton;
-        private ToolStripMenuItem changePasswordToolStripMenuItem;
     }
 }
 

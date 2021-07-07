@@ -12,9 +12,13 @@ namespace RatingSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class LOGIN
+    public partial class UserRole
     {
-        public string username { get; set; }
-        public string password { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> RoleId { get; set; }
+    
+        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }

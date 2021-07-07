@@ -37,6 +37,7 @@ namespace RatingSystem
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -47,7 +48,7 @@ namespace RatingSystem
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(132, 38);
+            this.label1.Location = new System.Drawing.Point(137, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(295, 43);
             this.label1.TabIndex = 18;
@@ -61,7 +62,7 @@ namespace RatingSystem
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(96, 138);
+            this.label2.Location = new System.Drawing.Point(94, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 32);
             this.label2.TabIndex = 19;
@@ -70,7 +71,7 @@ namespace RatingSystem
             // TitleTxt
             // 
             this.TitleTxt.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TitleTxt.Location = new System.Drawing.Point(204, 142);
+            this.TitleTxt.Location = new System.Drawing.Point(202, 112);
             this.TitleTxt.Name = "TitleTxt";
             this.TitleTxt.Size = new System.Drawing.Size(290, 30);
             this.TitleTxt.TabIndex = 21;
@@ -81,7 +82,7 @@ namespace RatingSystem
             this.AddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AddButton.Font = new System.Drawing.Font("Arial Narrow", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.AddButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.AddButton.Location = new System.Drawing.Point(177, 382);
+            this.AddButton.Location = new System.Drawing.Point(176, 355);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(166, 41);
             this.AddButton.TabIndex = 23;
@@ -91,7 +92,7 @@ namespace RatingSystem
             // 
             // SummaryTxt
             // 
-            this.SummaryTxt.Location = new System.Drawing.Point(203, 251);
+            this.SummaryTxt.Location = new System.Drawing.Point(201, 221);
             this.SummaryTxt.Multiline = true;
             this.SummaryTxt.Name = "SummaryTxt";
             this.SummaryTxt.Size = new System.Drawing.Size(291, 101);
@@ -105,7 +106,7 @@ namespace RatingSystem
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(26, 251);
+            this.label3.Location = new System.Drawing.Point(24, 221);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 32);
             this.label3.TabIndex = 25;
@@ -119,7 +120,7 @@ namespace RatingSystem
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(69, 193);
+            this.label4.Location = new System.Drawing.Point(67, 163);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(100, 32);
             this.label4.TabIndex = 26;
@@ -137,10 +138,20 @@ namespace RatingSystem
             "Fantasy",
             "Thriller",
             "Horror"});
-            this.comboBox1.Location = new System.Drawing.Point(203, 199);
+            this.comboBox1.Location = new System.Drawing.Point(201, 169);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(291, 29);
             this.comboBox1.TabIndex = 27;
+            // 
+            // Label
+            // 
+            this.Label.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Label.ForeColor = System.Drawing.Color.White;
+            this.Label.Location = new System.Drawing.Point(86, 400);
+            this.Label.Name = "Label";
+            this.Label.Size = new System.Drawing.Size(359, 59);
+            this.Label.TabIndex = 48;
+            this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NewMovie
             // 
@@ -148,7 +159,8 @@ namespace RatingSystem
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
-            this.ClientSize = new System.Drawing.Size(530, 462);
+            this.ClientSize = new System.Drawing.Size(530, 468);
+            this.Controls.Add(this.Label);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -174,5 +186,6 @@ namespace RatingSystem
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label Label;
     }
 }

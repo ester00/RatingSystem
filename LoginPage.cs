@@ -8,52 +8,56 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace RatingSystem
 {
+
     public partial class LoginPage : Form
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
-        public string Title { get; set; }
-        public int Rating { get; set; }
+        private readonly MovieRatingsEntities2 _db;
+        public int userid;
 
         public LoginPage()
         {
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True;MultipleActiveResultSets=True";
+            _db = new MovieRatingsEntities2();
         }
 
         #region LogIn
         private void LogInButton_Click(object sender, EventArgs e)
         {
-           using (var db = new MovieRatingsEntities1())
-            {
-                int i = 0;
-                con.Open();
-                com.Connection = con;
-                com.CommandText = "SELECT * FROM LOGIN";
-                SqlDataReader dr = com.ExecuteReader();
-                while(dr.Read())
-                {
-                    if (txtUsername.Text.Equals(dr["username"]) && txtPassword.Text.Equals(dr["password"].ToString()))
-                    {
-                        loginLabel.Text = "Login Succesfull.";
-                        loginLabel.ForeColor = System.Drawing.Color.LightGreen;
+            SHA256 sha = SHA256.Create();
 
-                        this.Visible = false;
-                        constant.UserName = this.txtUsername.Text;
-                        Form1 f1 = new Form1();
-                        f1.ShowDialog();
-                    }
-                    else
-                    {
-                        loginLabel.Text = "Either your username or password is incorrect.";
-                        loginLabel.ForeColor = System.Drawing.Color.Red;
-                    }
-                    i++;
-                }
-                con.Close();
+            var username = txtUsername.Text;
+            var password = txtPassword.Text;
+
+            byte[] data = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            var hashed_password = sBuilder.ToString();
+
+            var user = _db.Users.FirstOrDefault(q => q.Username == username && q.Password == hashed_password);
+            if (user == null)
+            {
+                loginLabel.Text = "Either your username or password is incorrect.";
+                loginLabel.ForeColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                var role = user.UserRoles.FirstOrDefault();
+                var roleName = role.Role.Name;
+
+                this.Visible = false;
+                constant.UserName = this.txtUsername.Text;
+                Form1 f1 = new Form1(this, roleName);
+                f1.ShowDialog();
             }
         }
 
@@ -89,7 +93,7 @@ namespace RatingSystem
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
             txtPassword.PasswordChar = '●';
-        } 
+        }
         private void label2_Click_1(object sender, EventArgs e)
         {
             txtPassword.PasswordChar = default(char);
@@ -106,28 +110,64 @@ namespace RatingSystem
         #region Register
         private void RegisterButton_Click(object sender, EventArgs e)
         {
+            SHA256 sha = SHA256.Create();
+
+            var username = txtUsername.Text;
+            var password = txtPassword.Text;
+
+            byte[] data = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            var hashed_password = sBuilder.ToString();
+
             if (IsValidPassword(txtPassword.Text))
             {
-                using (var db = new MovieRatingsEntities1())
+                using (var _db = new MovieRatingsEntities2())
+                {
+                    con.Open();
+                    com = new SqlCommand("SELECT Id from Users WHERE Username = @username", con);
+                    com.Parameters.AddWithValue("@username", username);
+                    com.ExecuteNonQuery();
+                    SqlDataReader dr = com.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            userid = Convert.ToInt32(dr["userid"]);
+                        }
+                    }
+                    con.Close();
+                }
+                using (var db = new MovieRatingsEntities2())
                 {
                     con.Open();
                     com.Connection = con;
-                    com.CommandText = "SELECT * FROM LOGIN";
+                    com.CommandText = "SELECT * FROM Users";
                     SqlDataReader dr = com.ExecuteReader();
                     if (dr.Read())
                     {
-                        if (txtUsername.Text.Equals(dr["username"]))
+                        if (username.Equals(dr["Username"]))
                         {
                             loginLabel.Text = "This username already exists.";
                             loginLabel.ForeColor = System.Drawing.Color.Red;
                         }
                         else
                         {
-                            if (txtUsername.Text != "Username" && txtUsername.Text != "" && txtPassword.Text != "")
+                            if (username != "Username" && username != "" && password != "")
                             {
-                                com = new SqlCommand("INSERT INTO LOGIN (username, password) VALUES (@username, @password)", con);
-                                com.Parameters.Add(new SqlParameter("@username", txtUsername.Text));
-                                com.Parameters.Add(new SqlParameter("@password", txtPassword.Text));
+                                com = new SqlCommand("INSERT INTO Users (Username, Password) VALUES (@username, @password)", con);
+                                com.Parameters.Add(new SqlParameter("@username", username));
+                                com.Parameters.Add(new SqlParameter("@password", hashed_password));
+                                com.ExecuteNonQuery();
+                                db.SaveChanges();
+
+                                com = new SqlCommand("INSERT INTO UserRoles (UserId, RoleId) VALUES (@userid, @roleid)", con);
+                                com.Parameters.Add(new SqlParameter("@userid", userid));
+                                com.Parameters.Add(new SqlParameter("@roleid", 2));
                                 com.ExecuteNonQuery();
                                 db.SaveChanges();
 
@@ -141,9 +181,10 @@ namespace RatingSystem
                                 loginLabel.Text = "Invalid username or password.";
                                 loginLabel.ForeColor = System.Drawing.Color.Red;
                             }
+                        
                         }
+                        con.Close();
                     }
-                    con.Close();
                 }
             }
             else
@@ -155,40 +196,12 @@ namespace RatingSystem
         }
         #endregion
 
-        #region Delete Account
-       private void DAButton_Click(object sender, EventArgs e)
+        private void GuestButton_Click(object sender, EventArgs e)
         {
-            using (var db = new MovieRatingsEntities1())
-            {
-                int i = 0;
-                con.Open();
-                com.Connection = con;
-                com.CommandText = "SELECT * FROM LOGIN";
-                SqlDataReader dr = com.ExecuteReader();
-                while(dr.Read())
-                {
-                    if (txtUsername.Text.Equals(dr["username"]) && txtPassword.Text.Equals(dr["password"].ToString()))
-                    {
-                        com = new SqlCommand("DELETE FROM LOGIN WHERE username = @username", con);
-                        com.Parameters.AddWithValue("@username", txtUsername.Text);
-                        com.ExecuteNonQuery();
-
-                        txtUsername.Text = "Username";
-                        txtPassword.Text = "Password";
-                        loginLabel.Text = "Account deleted succesfully.";
-                        loginLabel.ForeColor = System.Drawing.Color.LightGreen;
-                    }
-                    else
-                    {
-                        loginLabel.Text = "Couldn't find account.";
-                        loginLabel.ForeColor = System.Drawing.Color.Red;
-                    }
-                    i++;
-                }
-                con.Close();
-            }
+            this.Hide();
+            Form1 f1 = new Form1();
+            f1.ShowDialog();
         }
-        #endregion
     }
 }
 
