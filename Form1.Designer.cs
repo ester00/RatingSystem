@@ -40,11 +40,8 @@ namespace RatingSystem
             this.mOVIESTableAdapter = new RatingSystem.MovieRatingsDataSetTableAdapters.MOVIESTableAdapter();
             this.movieRatingsDataSet1 = new RatingSystem.MovieRatingsDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Summary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Genre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ratingsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RateButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.EditButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeleteButton = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -95,7 +92,6 @@ namespace RatingSystem
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(50)))), ((int)(((byte)(63)))));
             this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.DarkGray;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
@@ -108,15 +104,11 @@ namespace RatingSystem
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.titleDataGridViewTextBoxColumn,
             this.Summary,
             this.Genre,
-            this.ratingsDataGridViewTextBoxColumn,
             this.RateButton,
             this.EditButton,
             this.DeleteButton});
-            this.dataGridView1.DataSource = this.mOVyBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(101)))), ((int)(((byte)(120)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -149,25 +141,7 @@ namespace RatingSystem
             this.dataGridView1.TabIndex = 22;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
-
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "ID";
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 150;
-            // 
-            // titleDataGridViewTextBoxColumn
-            // 
-            this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-            this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-            this.titleDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-            this.titleDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.titleDataGridViewTextBoxColumn.Width = 150;
             // 
             // Summary
             // 
@@ -186,15 +160,6 @@ namespace RatingSystem
             this.Genre.Name = "Genre";
             this.Genre.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Genre.Width = 80;
-            // 
-            // ratingsDataGridViewTextBoxColumn
-            // 
-            this.ratingsDataGridViewTextBoxColumn.DataPropertyName = "Ratings";
-            this.ratingsDataGridViewTextBoxColumn.HeaderText = "Ratings";
-            this.ratingsDataGridViewTextBoxColumn.MinimumWidth = 8;
-            this.ratingsDataGridViewTextBoxColumn.Name = "ratingsDataGridViewTextBoxColumn";
-            this.ratingsDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ratingsDataGridViewTextBoxColumn.Width = 60;
             // 
             // RateButton
             // 
@@ -229,11 +194,8 @@ namespace RatingSystem
             this.DeleteButton.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DeleteButton.Text = "⌫";
             this.DeleteButton.UseColumnTextForButtonValue = true;
+            this.DeleteButton.Visible = false;
             this.DeleteButton.Width = 60;
-            // 
-            // mOVyBindingSource
-            // 
-            this.mOVyBindingSource.DataSource = typeof(RatingSystem.Movy);
             // 
             // mOVIESBindingSource
             // 
