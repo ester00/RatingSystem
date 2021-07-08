@@ -18,6 +18,7 @@ namespace RatingSystem
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
         private readonly MovieRatingsEntities2 _db;
+        public int userid;
 
         public LoginPage()
         {
@@ -27,7 +28,7 @@ namespace RatingSystem
         }
 
         #region LogIn
-        internal void LogInButton_Click(object sender, EventArgs e)
+        private void LogInButton_Click(object sender, EventArgs e)
         {
             SHA256 sha = SHA256.Create();
 
@@ -124,6 +125,23 @@ namespace RatingSystem
 
             if (IsValidPassword(txtPassword.Text))
             {
+                using (var _db = new MovieRatingsEntities2())
+                {
+                    con.Open();
+                    com = new SqlCommand("SELECT Id from Users WHERE Username = @username", con);
+                    com.Parameters.AddWithValue("@username", username);
+                    com.ExecuteNonQuery();
+                    SqlDataReader dr = com.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            userid = Convert.ToInt32(dr["userid"]);
+                        }
+                    }
+                    con.Close();
+                }
                 using (var db = new MovieRatingsEntities2())
                 {
                     con.Open();
@@ -146,14 +164,16 @@ namespace RatingSystem
                                 com.Parameters.Add(new SqlParameter("@password", hashed_password));
                                 com.ExecuteNonQuery();
                                 db.SaveChanges();
-                                
-                                var userId = _db.Users.FirstOrDefault(q => q.Username == username).Id;
-                                _db.UserRoles.Add(new UserRole() { RoleId = 2, UserId = userId});
-                                _db.SaveChanges();
+
+                                com = new SqlCommand("INSERT INTO UserRoles (UserId, RoleId) VALUES (@userid, @roleid)", con);
+                                com.Parameters.Add(new SqlParameter("@userid", userid));
+                                com.Parameters.Add(new SqlParameter("@roleid", 2));
+                                com.ExecuteNonQuery();
+                                db.SaveChanges();
 
                                 constant.UserName = this.txtUsername.Text;
                                 this.Visible = false;
-                                Form1 f1 = new Form1(this, "User");
+                                Form1 f1 = new Form1();
                                 f1.ShowDialog();
                             }
                             else

@@ -12,9 +12,6 @@
         <AssociationConnector Association="MovieRatingsModel.FK_UserRoles_Roles" />
         <AssociationConnector Association="MovieRatingsModel.FK_UserRoles_Users" />
         <AssociationConnector Association="MovieRatingsModel.FK__Movies__UsersId__59FA5E80" />
-        <EntityTypeShape EntityType="MovieRatingsModel.UserMovy" Width="1.5" PointX="2.875" PointY="3.125" />
-        <AssociationConnector Association="MovieRatingsModel.FK_UserMovies_Movies" />
-        <AssociationConnector Association="MovieRatingsModel.FK_UserMovies_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
