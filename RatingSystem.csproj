@@ -146,16 +146,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MovieRatingsDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MovieRatingsDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieRatingsDataSet1.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="MovieRatingsDataSet2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MovieRatingsDataSet3.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,7 +165,13 @@
     <Compile Include="Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserMovy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UserRole.cs">
@@ -224,28 +220,6 @@
     <None Include="MovieRatingsDataSet.xss">
       <DependentUpon>MovieRatingsDataSet.xsd</DependentUpon>
     </None>
-    <None Include="MovieRatingsDataSet1.xsc">
-      <DependentUpon>MovieRatingsDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MovieRatingsDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MovieRatingsDataSet1.xss">
-      <DependentUpon>MovieRatingsDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet2.xsc">
-      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
-    </None>
-    <None Include="MovieRatingsDataSet2.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MovieRatingsDataSet2.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MovieRatingsDataSet2.xss">
-      <DependentUpon>MovieRatingsDataSet2.xsd</DependentUpon>
-    </None>
     <None Include="MovieRatingsDataSet3.xsc">
       <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
     </None>
@@ -258,21 +232,61 @@
       <DependentUpon>MovieRatingsDataSet3.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ChangePassword.datasource" />
+    <None Include="Properties\DataSources\constant.datasource" />
+    <None Include="Properties\DataSources\DataGridViewDisableButtonCell.datasource" />
+    <None Include="Properties\DataSources\Edit.datasource" />
     <None Include="Properties\DataSources\Form1.datasource" />
+    <None Include="Properties\DataSources\LoginPage.datasource" />
     <None Include="Properties\DataSources\Lotto.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESDataTable.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRow.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRowChangeEvent.datasource" />
     <None Include="Properties\DataSources\MovieRatingsDataSet.MOVIESRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.RolesDataTable.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.RolesRow.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.RolesRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.RolesRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserMoviesDataTable.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserMoviesRow.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserMoviesRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserMoviesRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserRolesDataTable.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserRolesRow.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserRolesRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UserRolesRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UsersDataTable.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UsersRow.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UsersRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet.UsersRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet3.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet3.MOVIEDataTable.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet3.MOVIERow.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet3.MOVIERowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsDataSet3.MOVIERowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\MovieRatingsEntities3.datasource" />
     <None Include="Properties\DataSources\MOVy.datasource" />
     <None Include="Properties\DataSources\NewMovie.datasource" />
     <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSet3TableAdapters.MOVIETableAdapter.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSet3TableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSet3TableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.MOVIESTableAdapter.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.QueriesTableAdapter.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.RolesTableAdapter.datasource" />
     <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
     <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.TableAdapterManager.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.UserMoviesTableAdapter.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.UserRolesTableAdapter.datasource" />
+    <None Include="Properties\DataSources\RatingSystem.MovieRatingsDataSetTableAdapters.UsersTableAdapter.datasource" />
     <None Include="Properties\DataSources\RatingSystem.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\RatingSystem.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\Role.datasource" />
+    <None Include="Properties\DataSources\sysdiagram.datasource" />
+    <None Include="Properties\DataSources\User.datasource" />
+    <None Include="Properties\DataSources\UserMovy.datasource" />
+    <None Include="Properties\DataSources\UserRole.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -328,6 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

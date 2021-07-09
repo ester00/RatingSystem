@@ -8,29 +8,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Data.Entity.Migrations;
 
 namespace RatingSystem
 {
 
     public partial class Edit : Form
     {
-        SqlConnection con = new SqlConnection();
-        SqlCommand com = new SqlCommand();
-        public DataGridViewRow dgvr;
-        private int currMovieId;
 
-        public Edit()
+        Movy currentMovie;
+
+        public Edit(Movy movie)
         {
             InitializeComponent();
-            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
+            currentMovie = movie;
         }
+
 
         private void Edit_Load(object sender, EventArgs e)
         {
-            currMovieId = int.Parse(dgvr.Cells[0].Value.ToString());
-            TitleTxt.Text = dgvr.Cells[1].Value.ToString();
-            SummaryTxt.Text = dgvr.Cells[2].Value.ToString();
-            comboBox1.Text = dgvr.Cells[3].Value.ToString();
+
+            if (currentMovie != null)
+            {
+                TitleTxt.Text = currentMovie.Title;
+                SummaryTxt.Text = currentMovie.Summary;
+                comboBox1.Text = currentMovie.Genre;
+            }
+            else
+            {
+                Text = "New Movie";
+            }
+     
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
@@ -42,17 +50,22 @@ namespace RatingSystem
             }
             else
             {
-                using (var db = new MovieRatingsEntities2())
+                using (var db = new MovieRatingsEntities3())
                 {
-                    con.Open();
-                    com = new SqlCommand($"UPDATE Movies SET Title = @Title, Summary = @Summary, Genre = @Genre WHERE ID = {currMovieId}", con);
-                    com.Parameters.Add(new SqlParameter("@Title", TitleTxt.Text));
-                    com.Parameters.Add(new SqlParameter("@Summary", SummaryTxt.Text));
-                    com.Parameters.Add(new SqlParameter("@Genre", comboBox1.Text));
-                    com.ExecuteNonQuery();
-                    con.Close();
+
+                    if(currentMovie == null)
+                    {
+                        currentMovie = new Movy();
+                    }
+
+                    currentMovie.Title = TitleTxt.Text;
+                    currentMovie.Summary = SummaryTxt.Text;
+                    currentMovie.Genre = comboBox1.Text;
+
+                    db.Movies.AddOrUpdate(currentMovie);
                     db.SaveChanges();
-                    this.Close();
+
+                    DialogResult = DialogResult.OK;
                 }
             }
         }

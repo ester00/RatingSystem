@@ -9,5 +9,6 @@ namespace RatingSystem
     public static class constant
     {
         public static string UserName;
+        public static int LoggedUserId;
     }
 }

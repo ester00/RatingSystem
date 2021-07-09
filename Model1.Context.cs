@@ -13,10 +13,10 @@ namespace RatingSystem
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MovieRatingsEntities2 : DbContext
+    public partial class MovieRatingsEntities3 : DbContext
     {
-        public MovieRatingsEntities2()
-            : base("name=MovieRatingsEntities2")
+        public MovieRatingsEntities3()
+            : base("name=MovieRatingsEntities3")
         {
         }
     
@@ -25,9 +25,11 @@ namespace RatingSystem
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Movy> Movies { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<UserMovy> UserMovies { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Movy> Movies { get; set; }
     }
 }

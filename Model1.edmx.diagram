@@ -4,14 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="296dae97b5e247439aae9889ce1d9968" Name="Diagram1">
+      <Diagram DiagramId="d7d1ba6d384148f297833d61bc138fb7" Name="Diagram1" ZoomLevel="116">
+        <EntityTypeShape EntityType="MovieRatingsModel.Role" Width="1.5" PointX="4.625" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieRatingsModel.sysdiagram" Width="1.5" PointX="6.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieRatingsModel.UserMovy" Width="1.5" PointX="2.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieRatingsModel.UserRole" Width="1.5" PointX="2.625" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieRatingsModel.User" Width="1.5" PointX="0.5" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="MovieRatingsModel.FK_UserRoles_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="MovieRatingsModel.FK_UserMovies_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MovieRatingsModel.FK__UserRoles__UserI__5AEE82B9" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MovieRatingsModel.Movy" Width="1.5" PointX="0.5" PointY="0.5" />
-        <EntityTypeShape EntityType="MovieRatingsModel.Role" Width="1.5" PointX="4.875" PointY="3" />
-        <EntityTypeShape EntityType="MovieRatingsModel.UserRole" Width="1.5" PointX="4.875" PointY="0.5" />
-        <EntityTypeShape EntityType="MovieRatingsModel.User" Width="1.5" PointX="2.75" PointY="0.5" />
-        <AssociationConnector Association="MovieRatingsModel.FK_UserRoles_Roles" />
-        <AssociationConnector Association="MovieRatingsModel.FK_UserRoles_Users" />
-        <AssociationConnector Association="MovieRatingsModel.FK__Movies__UsersId__59FA5E80" />
+        <AssociationConnector Association="MovieRatingsModel.FK_UserMovies_Movies" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

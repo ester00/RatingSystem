@@ -14,13 +14,20 @@ namespace RatingSystem
     
     public partial class Movy
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Movy()
+        {
+            this.UserMovies = new HashSet<UserMovy>();
+        }
+    
         public string Title { get; set; }
         public string Ratings { get; set; }
         public string Summary { get; set; }
         public string Genre { get; set; }
         public int ID { get; set; }
-        public Nullable<int> UsersId { get; set; }
+        public bool HasBeenWatched { get; set; }
     
-        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserMovy> UserMovies { get; set; }
     }
 }

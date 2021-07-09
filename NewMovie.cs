@@ -15,11 +15,13 @@ namespace RatingSystem
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
+        private readonly MovieRatingsEntities3 _db;
 
         public NewMovie()
         {
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
+            _db = new MovieRatingsEntities3();
         }
         
         private void AddButton_Click(object sender, EventArgs e)
@@ -39,6 +41,14 @@ namespace RatingSystem
             com.ExecuteNonQuery();
             this.Close();
             }
+
+            string username = constant.UserName;
+            string title = TitleTxt.Text;
+
+            var userId = _db.Users.FirstOrDefault(q => q.Username == username).Id;
+            var movieId = _db.Movies.FirstOrDefault(q => q.Title == title).ID;
+            _db.UserMovies.Add(new UserMovy { MovieId = movieId, UserId = userId });
+            _db.SaveChanges();
         }
     }
 }

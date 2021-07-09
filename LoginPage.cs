@@ -17,14 +17,14 @@ namespace RatingSystem
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
-        private readonly MovieRatingsEntities2 _db;
+        private readonly MovieRatingsEntities3 _db;
         public int userid;
 
         public LoginPage()
         {
             InitializeComponent();
             con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True;MultipleActiveResultSets=True";
-            _db = new MovieRatingsEntities2();
+            _db = new MovieRatingsEntities3();
         }
 
         #region LogIn
@@ -55,7 +55,8 @@ namespace RatingSystem
                 var roleName = role.Role.Name;
 
                 this.Visible = false;
-                constant.UserName = this.txtUsername.Text;
+                constant.UserName = user.Username;
+                constant.LoggedUserId = user.Id;
                 Form1 f1 = new Form1(this, roleName);
                 f1.ShowDialog();
             }
@@ -125,7 +126,7 @@ namespace RatingSystem
 
             if (IsValidPassword(txtPassword.Text))
             {
-                using (var _db = new MovieRatingsEntities2())
+                using (var _db = new MovieRatingsEntities3())
                 {
                     con.Open();
                     com = new SqlCommand("SELECT Id from Users WHERE Username = @username", con);
@@ -142,7 +143,7 @@ namespace RatingSystem
                     }
                     con.Close();
                 }
-                using (var db = new MovieRatingsEntities2())
+                using (var db = new MovieRatingsEntities3())
                 {
                     con.Open();
                     com.Connection = con;
@@ -171,9 +172,14 @@ namespace RatingSystem
                                 com.ExecuteNonQuery();
                                 db.SaveChanges();
 
+                                var userId = _db.Users.FirstOrDefault(q => q.Username == username).Id;
+                                _db.UserRoles.Add(new UserRole() { RoleId = 2, UserId = userId });
+                                _db.SaveChanges();
+
+
                                 constant.UserName = this.txtUsername.Text;
                                 this.Visible = false;
-                                Form1 f1 = new Form1();
+                                Form1 f1 = new Form1(this, "User");
                                 f1.ShowDialog();
                             }
                             else

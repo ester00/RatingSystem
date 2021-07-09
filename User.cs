@@ -17,8 +17,8 @@ namespace RatingSystem
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.UserMovies = new HashSet<UserMovy>();
             this.UserRoles = new HashSet<UserRole>();
-            this.Movies = new HashSet<Movy>();
         }
     
         public string Username { get; set; }
@@ -26,8 +26,8 @@ namespace RatingSystem
         public int Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        public virtual ICollection<UserMovy> UserMovies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movy> Movies { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

@@ -12,13 +12,13 @@ namespace RatingSystem
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class UserMovy
     {
         public int Id { get; set; }
-        public Nullable<int> RoleId { get; set; }
         public Nullable<int> UserId { get; set; }
+        public Nullable<int> MovieId { get; set; }
     
-        public virtual Role Role { get; set; }
         public virtual User User { get; set; }
+        public virtual Movy Movy { get; set; }
     }
 }

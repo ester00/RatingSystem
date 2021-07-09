@@ -43,7 +43,6 @@ namespace RatingSystem
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.GuestButton = new System.Windows.Forms.Button();
-            this.textBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -106,7 +105,8 @@ namespace RatingSystem
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(267, 28);
             this.txtPassword.TabIndex = 31;
-            this.txtPassword.Text = "Password";
+            this.txtPassword.Text = "admin";
+            this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.Enter += new System.EventHandler(this.txtPassEnter);
             this.txtPassword.Leave += new System.EventHandler(this.txtPassLeave);
@@ -131,7 +131,7 @@ namespace RatingSystem
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(267, 28);
             this.txtUsername.TabIndex = 28;
-            this.txtUsername.Text = "Username";
+            this.txtUsername.Text = "admin";
             this.txtUsername.Enter += new System.EventHandler(this.txtUserEnter);
             this.txtUsername.Leave += new System.EventHandler(this.txtUserLeave);
             // 
@@ -203,13 +203,6 @@ namespace RatingSystem
             this.GuestButton.UseVisualStyleBackColor = false;
             this.GuestButton.Click += new System.EventHandler(this.GuestButton_Click);
             // 
-            // textBox
-            // 
-            this.textBox.Location = new System.Drawing.Point(460, 31);
-            this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(24, 26);
-            this.textBox.TabIndex = 44;
-            // 
             // LoginPage
             // 
             this.AcceptButton = this.LogInButton;
@@ -217,7 +210,6 @@ namespace RatingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
             this.ClientSize = new System.Drawing.Size(522, 597);
-            this.Controls.Add(this.textBox);
             this.Controls.Add(this.GuestButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -255,6 +247,5 @@ namespace RatingSystem
         public System.Windows.Forms.TextBox txtPassword;
         public System.Windows.Forms.TextBox txtUsername;
         internal System.Windows.Forms.Button GuestButton;
-        private System.Windows.Forms.TextBox textBox;
     }
 }
