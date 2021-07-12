@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.Data.Entity.Migrations;
 
 namespace RatingSystem
 {
@@ -16,9 +17,10 @@ namespace RatingSystem
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
-        private readonly MovieRatingsEntities3 _db;
-        private LoginPage _login;
         public string _roleName;
+
+        User currentUser;
+        Movy currentMovie;
 
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
         static int alarmCounter = 1;
@@ -48,23 +50,10 @@ namespace RatingSystem
         public Form1()
         {
             InitializeComponent();
-            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
-            _db = new MovieRatingsEntities3();
-        }
-
-        public Form1(LoginPage login, string roleName)
-        {
-            InitializeComponent();
-            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True";
-            _login = login;
-            _roleName = roleName;
-            _db = new MovieRatingsEntities3();
         }
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'movieRatingsDataSet.Movies' table. You can move, or remove it, as needed.
-           // this.moviesTableAdapter.Fill(this.movieRatingsDataSet.Movies);
             UpdateDataIntoDatagrid();
             myTimer.Tick += new EventHandler(TimerEventProcessor);
             loggedInToolStripMenuItem.Text = constant.UserName;
@@ -84,22 +73,6 @@ namespace RatingSystem
                 lottoToolStripMenuItem.Visible = false;
                 logInToolStripMenuItem.Visible = true;
             }
-
-            //List<int> idList2 = new List<int>();
-            //var result2 = (_db.Users.Where(j => idList2.Contains(j.Id))).ToList();
-            //List<int> idList = new List<int>();
-            //var result = (_db.UserMovies.Where(j => idList.Contains(j.Id))).ToList();
-            //var result3 = result2.Where(p => result.All(p2 => p2.Id != p.Id));
-            //
-            //var items = this.dataGridView1.Rows.Cast<DataGridViewRow>()
-            //.Where(row => row.Cells[1].Value.Equals(result3));
-            //
-            //foreach (DataGridViewRow row in items )
-            //{
-            //    DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            //    dataGridViewCellStyle2.Padding = new Padding(0, 0, 1000, 0);
-            //    row.Cells["EditButton"].Style = dataGridViewCellStyle2;
-            //}
         }
 
         #region Rate/Delete/Edit
@@ -107,14 +80,8 @@ namespace RatingSystem
         {
             var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
 
-            if (e.ColumnIndex == dataGridView1.Columns["DeleteButton"].Index)
-            {
-                Delete();
-            }
-
             if (e.ColumnIndex == dataGridView1.Columns["EditButton"].Index)
             {
-                
                 using (var db = new MovieRatingsEntities3())
                 {
                     if (db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
@@ -125,24 +92,39 @@ namespace RatingSystem
                     {
                         MessageBox.Show("Да бе да,... не твой не барай!");
                     }
-
-                   
                 }
+            }
 
-                
+            if (e.ColumnIndex == dataGridView1.Columns["DeleteButton"].Index)
+            {
+                using (var db = new MovieRatingsEntities3())
+                {
+                    if (db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
+                    {
+                        Delete(currentMovie);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Да бе да,... не твой не барай!");
+                    }
+                }
             }
 
             if (e.ColumnIndex == dataGridView1.Columns["RateButton"].Index)
             {
                 using (var db = new MovieRatingsEntities3())
                 {
+                    if (db.Movies.FirstOrDefault(u => u.ID == record.ID) != null)
+                    { 
+
+                    }
+
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     con.Open();
                     com = new SqlCommand($"UPDATE Movies SET Ratings = ISNULL(Ratings, 0)+1 WHERE ID = {record.ID}", con);
                     com.ExecuteNonQuery();
                     con.Close();
                     UpdateDataIntoDatagrid();
-                    //RateButton.Visible = false;
                 }
             }
         }
@@ -197,14 +179,12 @@ namespace RatingSystem
 
         private void newMovieToolStripMenuItem_Click(object sender, EventArgs e)
         {
-  
             Edit addEditForm = new Edit(null);
 
             if(addEditForm.ShowDialog() == DialogResult.OK)
             {
                 UpdateDataIntoDatagrid();
             }
-            
         }
 
         private void logOutToolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -216,7 +196,7 @@ namespace RatingSystem
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangePassword popUpForm = new ChangePassword();
+            ChangePassword popUpForm = new ChangePassword(currentUser);
             popUpForm.ShowDialog();
             UpdateDataIntoDatagrid();
         }
@@ -245,17 +225,23 @@ namespace RatingSystem
             }
             else
             {
-                var user = db.Users.FirstOrDefault(q => q.Username == username && q.Password == hashed_password);
-                con.Open();
-                com.Connection = con;
-                com = new SqlCommand("DELETE FROM Users WHERE username = @username", con);
-                com.Parameters.AddWithValue("@username", constant.UserName);
-                com.ExecuteNonQuery();
+                var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
+                using (db = new MovieRatingsEntities3())
+                {
+                    if(db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
+                    {
+                        var x = (from y in db.Users
+                                 where y.Id == constant.LoggedUserId
+                                 select y).FirstOrDefault();
+                        db.Users.Remove(x);
+                        db.SaveChanges();
 
-                MessageBox.Show("Account deleted succesfully.", "Delete Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
-                LoginPage LP = new LoginPage();
-                LP.ShowDialog();
+                        MessageBox.Show("Account deleted succesfully.", "Delete Account", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Hide();
+                        LoginPage LP = new LoginPage();
+                        LP.ShowDialog();
+                    }
+                }
             }
         }
 
@@ -275,7 +261,7 @@ namespace RatingSystem
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            Delete();
+            Delete(currentMovie);
         }
         #endregion
 
@@ -285,7 +271,6 @@ namespace RatingSystem
             using (var db = new MovieRatingsEntities3())
             {
                 dataGridView1.DataSource = db.Movies.Where(m => m.HasBeenWatched == false).ToList();
-                //db.SaveChanges();
             }
         }
 
@@ -297,26 +282,23 @@ namespace RatingSystem
             {
                 UpdateDataIntoDatagrid();
             }
-
         }
 
-        private void Delete()
+        private object Delete(Movy currentMovie)
         {
-            var RowIndex = dataGridView1.CurrentCell.RowIndex;
-            int curMovieId = int.Parse(dataGridView1.Rows[RowIndex].Cells[0].Value.ToString());
-            if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            using (var db = new MovieRatingsEntities3())
             {
-                using (var db = new MovieRatingsEntities3())
+                var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
+                if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    DataGridViewRow row = dataGridView1.Rows[RowIndex];
-                    con.Open();
-                    com = new SqlCommand($"DELETE FROM UserRoles WHERE ID = {curMovieId}", con);
-                    com.ExecuteNonQuery();
-                    com = new SqlCommand($"DELETE FROM Movies WHERE ID = {curMovieId}", con);
-                    com.ExecuteNonQuery();
-                    db.SaveChanges();
-                    UpdateDataIntoDatagrid();
-                    con.Close();
+                    if (currentMovie != null)
+                    {
+                        var x = (from y in db.Movies
+                                 where y.ID == record.ID
+                                 select y).FirstOrDefault();
+                        db.Movies.Remove(x);
+                        db.SaveChanges();
+                    }
                 }
             }
         }

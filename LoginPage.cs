@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.Data.Entity.Migrations;
 
 namespace RatingSystem
 {
 
     public partial class LoginPage : Form
     {
-        SqlConnection con = new SqlConnection();
-        SqlCommand com = new SqlCommand();
         private readonly MovieRatingsEntities3 _db;
         public int userid;
+
+        User currentUser;
 
         public LoginPage()
         {
             InitializeComponent();
-            con.ConnectionString = @"Data Source=DESKTOP-TFVT6L2;Initial Catalog=MovieRatings;Integrated Security=True;MultipleActiveResultSets=True";
             _db = new MovieRatingsEntities3();
         }
 
@@ -57,7 +57,7 @@ namespace RatingSystem
                 this.Visible = false;
                 constant.UserName = user.Username;
                 constant.LoggedUserId = user.Id;
-                Form1 f1 = new Form1(this, roleName);
+                Form1 f1 = new Form1();
                 f1.ShowDialog();
             }
         }
@@ -126,70 +126,37 @@ namespace RatingSystem
 
             if (IsValidPassword(txtPassword.Text))
             {
-                using (var _db = new MovieRatingsEntities3())
-                {
-                    con.Open();
-                    com = new SqlCommand("SELECT Id from Users WHERE Username = @username", con);
-                    com.Parameters.AddWithValue("@username", username);
-                    com.ExecuteNonQuery();
-                    SqlDataReader dr = com.ExecuteReader();
-
-                    if (dr.HasRows)
-                    {
-                        while (dr.Read())
-                        {
-                            userid = Convert.ToInt32(dr["userid"]);
-                        }
-                    }
-                    con.Close();
-                }
                 using (var db = new MovieRatingsEntities3())
                 {
-                    con.Open();
-                    com.Connection = con;
-                    com.CommandText = "SELECT * FROM Users";
-                    SqlDataReader dr = com.ExecuteReader();
-                    if (dr.Read())
+                    if (db.Users.FirstOrDefault(u => u.Username == txtUsername.Text) != null)
                     {
-                        if (username.Equals(dr["Username"]))
+                        loginLabel.Text = "This username already exists.";
+                        loginLabel.ForeColor = System.Drawing.Color.Red;
+                    }
+                    else
+                    {
+                        if (username != "Username" && username != "" && password != "")
                         {
-                            loginLabel.Text = "This username already exists.";
-                            loginLabel.ForeColor = System.Drawing.Color.Red;
+                            currentUser.Username = username;
+                            currentUser.Password = hashed_password;
+
+                            db.Users.AddOrUpdate(currentUser);
+                            db.SaveChanges();
+
+                            var userId = _db.Users.FirstOrDefault(q => q.Username == username).Id;
+                            _db.UserRoles.Add(new UserRole() { RoleId = 2, UserId = userId });
+                            _db.SaveChanges();
+
+                            constant.UserName = this.txtUsername.Text;
+                            this.Visible = false;
+                            Form1 f1 = new Form1();
+                            f1.ShowDialog();
                         }
                         else
                         {
-                            if (username != "Username" && username != "" && password != "")
-                            {
-                                com = new SqlCommand("INSERT INTO Users (Username, Password) VALUES (@username, @password)", con);
-                                com.Parameters.Add(new SqlParameter("@username", username));
-                                com.Parameters.Add(new SqlParameter("@password", hashed_password));
-                                com.ExecuteNonQuery();
-                                db.SaveChanges();
-
-                                com = new SqlCommand("INSERT INTO UserRoles (UserId, RoleId) VALUES (@userid, @roleid)", con);
-                                com.Parameters.Add(new SqlParameter("@userid", userid));
-                                com.Parameters.Add(new SqlParameter("@roleid", 2));
-                                com.ExecuteNonQuery();
-                                db.SaveChanges();
-
-                                var userId = _db.Users.FirstOrDefault(q => q.Username == username).Id;
-                                _db.UserRoles.Add(new UserRole() { RoleId = 2, UserId = userId });
-                                _db.SaveChanges();
-
-
-                                constant.UserName = this.txtUsername.Text;
-                                this.Visible = false;
-                                Form1 f1 = new Form1(this, "User");
-                                f1.ShowDialog();
-                            }
-                            else
-                            {
-                                loginLabel.Text = "Invalid username or password.";
-                                loginLabel.ForeColor = System.Drawing.Color.Red;
-                            }
-                        
+                            loginLabel.Text = "Invalid username or password.";
+                            loginLabel.ForeColor = System.Drawing.Color.Red;
                         }
-                        con.Close();
                     }
                 }
             }
