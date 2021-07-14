@@ -10,5 +10,6 @@ namespace RatingSystem
     {
         public static string UserName;
         public static int LoggedUserId;
+        public static string RoleName;
     }
 }

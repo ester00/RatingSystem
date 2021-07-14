@@ -40,9 +40,9 @@ namespace RatingSystem
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.GuestButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -105,7 +105,7 @@ namespace RatingSystem
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(267, 28);
             this.txtPassword.TabIndex = 31;
-            this.txtPassword.Text = "admin";
+            this.txtPassword.Text = "Password";
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.Enter += new System.EventHandler(this.txtPassEnter);
@@ -131,7 +131,7 @@ namespace RatingSystem
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(267, 28);
             this.txtUsername.TabIndex = 28;
-            this.txtUsername.Text = "admin";
+            this.txtUsername.Text = "Username";
             this.txtUsername.Enter += new System.EventHandler(this.txtUserEnter);
             this.txtUsername.Leave += new System.EventHandler(this.txtUserLeave);
             // 
@@ -165,18 +165,6 @@ namespace RatingSystem
             this.panel1.Size = new System.Drawing.Size(337, 3);
             this.panel1.TabIndex = 39;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(428, 244);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 29);
-            this.label2.TabIndex = 41;
-            this.label2.Text = "👁";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
-            // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -203,6 +191,18 @@ namespace RatingSystem
             this.GuestButton.UseVisualStyleBackColor = false;
             this.GuestButton.Click += new System.EventHandler(this.GuestButton_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Location = new System.Drawing.Point(473, 254);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 29);
+            this.label5.TabIndex = 50;
+            this.label5.Text = "👁";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // LoginPage
             // 
             this.AcceptButton = this.LogInButton;
@@ -210,9 +210,9 @@ namespace RatingSystem
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(106)))));
             this.ClientSize = new System.Drawing.Size(522, 597);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.GuestButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label1);
@@ -242,10 +242,10 @@ namespace RatingSystem
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtPassword;
         public System.Windows.Forms.TextBox txtUsername;
         internal System.Windows.Forms.Button GuestButton;
+        private System.Windows.Forms.Label label5;
     }
 }

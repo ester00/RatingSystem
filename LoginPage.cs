@@ -52,16 +52,18 @@ namespace RatingSystem
             else
             {
                 var role = user.UserRoles.FirstOrDefault();
-                var roleName = role.Role.Name;
+                constant.RoleName = role.Role.Name;
 
                 this.Visible = false;
                 constant.UserName = user.Username;
                 constant.LoggedUserId = user.Id;
-                Form1 f1 = new Form1();
+                Form1 f1 = new Form1(this, "User");
                 f1.ShowDialog();
             }
         }
+        #endregion
 
+        #region Username/Password
         private void txtUserLeave(object sender, EventArgs e)
         {
             if (txtUsername.Text.Equals(""))
@@ -95,11 +97,11 @@ namespace RatingSystem
         {
             txtPassword.PasswordChar = '●';
         }
-        private void label2_Click_1(object sender, EventArgs e)
+
+        private void label5_Click(object sender, EventArgs e)
         {
             txtPassword.PasswordChar = default(char);
         }
-        #endregion
 
         private bool IsValidPassword(string password)
         {
@@ -107,6 +109,7 @@ namespace RatingSystem
                     password.Any(char.IsUpper)
                     );
         }
+        #endregion 
 
         #region Register
         private void RegisterButton_Click(object sender, EventArgs e)
@@ -137,6 +140,7 @@ namespace RatingSystem
                     {
                         if (username != "Username" && username != "" && password != "")
                         {
+                            currentUser = new User();
                             currentUser.Username = username;
                             currentUser.Password = hashed_password;
 
@@ -149,7 +153,7 @@ namespace RatingSystem
 
                             constant.UserName = this.txtUsername.Text;
                             this.Visible = false;
-                            Form1 f1 = new Form1();
+                            Form1 f1 = new Form1(this, "User");
                             f1.ShowDialog();
                         }
                         else
@@ -175,6 +179,8 @@ namespace RatingSystem
             Form1 f1 = new Form1();
             f1.ShowDialog();
         }
+
+
     }
 }
 

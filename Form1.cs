@@ -17,10 +17,9 @@ namespace RatingSystem
     {
         SqlConnection con = new SqlConnection();
         SqlCommand com = new SqlCommand();
+        private LoginPage _login;
         public string _roleName;
-
-        User currentUser;
-        Movy currentMovie;
+        private readonly MovieRatingsEntities3 _db;
 
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
         static int alarmCounter = 1;
@@ -50,6 +49,14 @@ namespace RatingSystem
         public Form1()
         {
             InitializeComponent();
+            _db = new MovieRatingsEntities3();
+        }
+
+        public Form1(LoginPage login, string roleName)
+        {
+            InitializeComponent();
+            _login = login;
+            _roleName = roleName;
         }
 
         public void Form1_Load(object sender, EventArgs e)
@@ -58,21 +65,21 @@ namespace RatingSystem
             myTimer.Tick += new EventHandler(TimerEventProcessor);
             loggedInToolStripMenuItem.Text = constant.UserName;
 
-            if (_roleName != "Admin")
+            if (constant.RoleName != "Admin")
             {
-                DeleteButton.Visible = false;
+               DeleteButton.Visible = false;
             }
-
-            if (_roleName != "Admin" && _roleName != "User")
-            {
-                DeleteButton.Visible = false;
-                EditButton.Visible = false;
-                RateButton.Visible = false;
-                loggedInToolStripMenuItem.Visible = false;
-                newMovieToolStripMenuItem.Visible = false;
-                lottoToolStripMenuItem.Visible = false;
-                logInToolStripMenuItem.Visible = true;
-            }
+           
+           if (constant.RoleName != "Admin" && _roleName != "User")
+           {
+               DeleteButton.Visible = false;
+               EditButton.Visible = false;
+               RateButton.Visible = false;
+               loggedInToolStripMenuItem.Visible = false;
+               newMovieToolStripMenuItem.Visible = false;
+               lottoToolStripMenuItem.Visible = false;
+               logInToolStripMenuItem.Visible = true;
+           }
         }
 
         #region Rate/Delete/Edit
@@ -99,14 +106,8 @@ namespace RatingSystem
             {
                 using (var db = new MovieRatingsEntities3())
                 {
-                    if (db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
-                    {
-                        Delete(currentMovie);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Да бе да,... не твой не барай!");
-                    }
+                    Delete();
+                    db.SaveChanges();
                 }
             }
 
@@ -114,20 +115,26 @@ namespace RatingSystem
             {
                 using (var db = new MovieRatingsEntities3())
                 {
-                    if (db.Movies.FirstOrDefault(u => u.ID == record.ID) != null)
-                    { 
+                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                    using (var db2 = new MovieRatingsEntities3())
+                    {
+                        var currentMovie = db2.Movies.First(x => x.ID == record.ID);
+                        var convertedRating = 0;
+
+                        if (currentMovie.Ratings != null)
+                        {
+                            convertedRating = int.Parse(currentMovie.Ratings);
+                        }
+
+                        currentMovie.Ratings = (convertedRating + 1).ToString();
+                        db2.SaveChanges();
 
                     }
-
-                    DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                    con.Open();
-                    com = new SqlCommand($"UPDATE Movies SET Ratings = ISNULL(Ratings, 0)+1 WHERE ID = {record.ID}", con);
-                    com.ExecuteNonQuery();
-                    con.Close();
                     UpdateDataIntoDatagrid();
                 }
             }
         }
+
         public void dataGridView1_CellValueChanged(object sender,
         DataGridViewCellEventArgs e)
         {
@@ -196,7 +203,8 @@ namespace RatingSystem
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChangePassword popUpForm = new ChangePassword(currentUser);
+            string lgname = _login.txtUsername.Text;
+            ChangePassword popUpForm = new ChangePassword(_login);
             popUpForm.ShowDialog();
             UpdateDataIntoDatagrid();
         }
@@ -228,7 +236,7 @@ namespace RatingSystem
                 var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
                 using (db = new MovieRatingsEntities3())
                 {
-                    if(db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
+                    if(db.Users.FirstOrDefault(u => u.Id == constant.LoggedUserId) != null)
                     {
                         var x = (from y in db.Users
                                  where y.Id == constant.LoggedUserId
@@ -256,12 +264,30 @@ namespace RatingSystem
         #region Key events
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Edit(dataGridView1.CurrentRow.DataBoundItem as Movy);
+            var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
+            using (var db = new MovieRatingsDataSet())
+            {
+                if (db.UserMovies.FirstOrDefault(u => u.MovieId == record.ID && u.UserId == constant.LoggedUserId) != null)
+                {
+                    Edit(dataGridView1.CurrentRow.DataBoundItem as Movy);
+                }
+                else
+                {
+                    MessageBox.Show("Да бе да,... не твой не барай!");
+                }
+            }
         }
 
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
-            Delete(currentMovie);
+            if (constant.RoleName == "Admin")
+            {
+                Delete();
+            }
+            else
+            {
+                MessageBox.Show("Да бе да,... не твой не барай!");
+            }
         }
         #endregion
 
@@ -284,21 +310,19 @@ namespace RatingSystem
             }
         }
 
-        private object Delete(Movy currentMovie)
+        private void Delete()
         {
             using (var db = new MovieRatingsEntities3())
             {
                 var record = dataGridView1.CurrentRow.DataBoundItem as Movy;
                 if (MessageBox.Show("Are you sure you want to delete this record?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (currentMovie != null)
-                    {
-                        var x = (from y in db.Movies
-                                 where y.ID == record.ID
-                                 select y).FirstOrDefault();
-                        db.Movies.Remove(x);
-                        db.SaveChanges();
-                    }
+                    var x = (from y in db.Movies
+                             where y.ID == record.ID
+                             select y).FirstOrDefault();
+                    db.Movies.Remove(x);
+                    db.SaveChanges();
+                    UpdateDataIntoDatagrid();
                 }
             }
         }

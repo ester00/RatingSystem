@@ -12,10 +12,8 @@ using System.Data.Entity.Migrations;
 
 namespace RatingSystem
 {
-
     public partial class Edit : Form
     {
-
         Movy currentMovie;
 
         public Edit(Movy movie)
@@ -23,7 +21,6 @@ namespace RatingSystem
             InitializeComponent();
             currentMovie = movie;
         }
-
 
         private void Edit_Load(object sender, EventArgs e)
         {
@@ -38,7 +35,6 @@ namespace RatingSystem
             {
                 Text = "New Movie";
             }
-     
         }
         
         private void SaveButton_Click(object sender, EventArgs e)

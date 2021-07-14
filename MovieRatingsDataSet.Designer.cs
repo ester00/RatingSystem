@@ -10,6 +10,8 @@
 
 #pragma warning disable 1591
 
+using System;
+
 namespace RatingSystem {
     
     
@@ -1923,6 +1925,11 @@ namespace RatingSystem {
                 }
                 xs.Add(dsSchema);
                 return type;
+            }
+
+            internal void AddOrUpdate(User currentUser)
+            {
+                throw new NotImplementedException();
             }
         }
         

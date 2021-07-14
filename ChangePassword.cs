@@ -9,45 +9,68 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Entity.Migrations;
+using System.Security.Cryptography;
 
 namespace RatingSystem
 {
     public partial class ChangePassword : Form
     {
-        User currentUser;
+        LoginPage loginPage;
 
-        public ChangePassword(User user)
+        public ChangePassword(LoginPage user)
         {
             InitializeComponent();
-            currentUser = user;
+            loginPage = user;
+        }
+
+        private void ChangePass()
+        {
+            using (var db = new MovieRatingsEntities3())
+            {
+                string username = this.loginPage.txtUsername.Text;
+                var currentUser = db.Users.FirstOrDefault(u => u.Username == username);
+
+                var hashedOldPassword = GenerateHashedPassword(this.textOldPass.Text);
+
+                if (db.Users.FirstOrDefault(p => p.Password == hashedOldPassword) != null)
+                {
+                    var newPassword = textNewPass.Text;
+                    string hashed_password = GenerateHashedPassword(newPassword);
+                    currentUser.Password = hashed_password;
+
+                    db.Users.AddOrUpdate(currentUser);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    loginLabel.Text = "The password you have entered is incorrect.";
+                    loginLabel.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+        }
+
+        private static string GenerateHashedPassword(string newPassword)
+        {
+            SHA256 sha = SHA256.Create();
+
+            byte[] data = sha.ComputeHash(Encoding.UTF8.GetBytes(newPassword));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            var hashed_password = sBuilder.ToString();
+            return hashed_password;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-             if (IsValidPassword(textNewPass.Text))
-             {
-                    using (var db = new MovieRatingsEntities3())
-                    {
-                        if (db.Users.FirstOrDefault(u => u.Password == currentUser.Password) != null)
-                        {
-                            currentUser.Password = textNewPass.Text;
-
-                            db.Users.AddOrUpdate(currentUser);
-                            db.SaveChanges();
-                        }
-                    else
-                    {
-                        loginLabel.Text = "Either your username or password is incorrect.";
-                        loginLabel.ForeColor = System.Drawing.Color.Red;
-                    }
-                }
+            if (IsValidPassword(textNewPass.Text))
+            {
+                ChangePass();
+                MessageBox.Show("Password changed succesfully.", "Password change", MessageBoxButtons.OK);
+                this.Close();
             }
-             else
-             {
-                 loginLabel.Text = "Invalid password!";
-                 loginLabel.ForeColor = System.Drawing.Color.Red;
-                 label6.ForeColor = System.Drawing.Color.Red;
-             }
         }
         private bool IsValidPassword(string password)
         {
