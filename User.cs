@@ -19,6 +19,7 @@ namespace RatingSystem
         {
             this.UserMovies = new HashSet<UserMovy>();
             this.UserRoles = new HashSet<UserRole>();
+            this.MovieRates = new HashSet<MovieRate>();
         }
     
         public string Username { get; set; }
@@ -29,5 +30,7 @@ namespace RatingSystem
         public virtual ICollection<UserMovy> UserMovies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MovieRate> MovieRates { get; set; }
     }
 }

@@ -91,8 +91,7 @@ namespace RatingSystem
 
         private void label4_Click(object sender, EventArgs e)
         {
-            textNewPass
-                .PasswordChar = default(char);
+            textNewPass.PasswordChar = default(char);
         }
     }
 }

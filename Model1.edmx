@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MovieRatingsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MovieRates">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="MovieId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Movies">
           <Key>
             <PropertyRef Name="ID" />
@@ -57,6 +65,18 @@
           <Property Name="Password" Type="varchar" MaxLength="100" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK__MovieRate__UserI__04E4BC85">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MovieRates" Type="Self.MovieRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieRates">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserRoles__UserI__5AEE82B9">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -68,6 +88,18 @@
             </Principal>
             <Dependent Role="UserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_teamPlayer__Team">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="MovieRates" Type="Self.MovieRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MovieRates">
+              <PropertyRef Name="MovieId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -114,15 +146,24 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="MovieRatingsModelStoreContainer">
+          <EntitySet Name="MovieRates" EntityType="Self.MovieRates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserMovies" EntityType="Self.UserMovies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MovieRate__UserI__04E4BC85" Association="Self.FK__MovieRate__UserI__04E4BC85">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MovieRates" EntitySet="MovieRates" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserRoles__UserI__5AEE82B9" Association="Self.FK__UserRoles__UserI__5AEE82B9">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_teamPlayer__Team" Association="Self.fk_teamPlayer__Team">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="MovieRates" EntitySet="MovieRates" />
           </AssociationSet>
           <AssociationSet Name="FK_UserMovies_Movies" Association="Self.FK_UserMovies_Movies">
             <End Role="Movies" EntitySet="Movies" />
@@ -188,6 +229,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="UserMovies" Relationship="Self.FK_UserMovies_Users" FromRole="Users" ToRole="UserMovies" />
           <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRoles__UserI__5AEE82B9" FromRole="Users" ToRole="UserRoles" />
+          <NavigationProperty Name="MovieRates" Relationship="MovieRatingsModel.FK__MovieRate__UserI__04E4BC85" FromRole="User" ToRole="MovieRate" />
         </EntityType>
         <Association Name="FK_UserRoles_Roles">
           <End Role="Roles" Type="Self.Role" Multiplicity="0..1">
@@ -254,6 +296,15 @@
             <End Role="Movy" EntitySet="Movies" />
             <End Role="UserMovy" EntitySet="UserMovies" />
           </AssociationSet>
+          <EntitySet Name="MovieRates" EntityType="MovieRatingsModel.MovieRate" />
+          <AssociationSet Name="FK__MovieRate__UserI__04E4BC85" Association="MovieRatingsModel.FK__MovieRate__UserI__04E4BC85">
+            <End Role="User" EntitySet="Users" />
+            <End Role="MovieRate" EntitySet="MovieRates" />
+          </AssociationSet>
+          <AssociationSet Name="fk_teamPlayer__Team" Association="MovieRatingsModel.fk_teamPlayer__Team">
+            <End Role="Movy" EntitySet="Movies" />
+            <End Role="MovieRate" EntitySet="MovieRates" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Movy">
           <Key>
@@ -266,6 +317,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HasBeenWatched" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserMovies" Relationship="MovieRatingsModel.FK_UserMovies_Movies" FromRole="Movy" ToRole="UserMovy" />
+          <NavigationProperty Name="MovieRates" Relationship="MovieRatingsModel.fk_teamPlayer__Team" FromRole="Movy" ToRole="MovieRate" />
         </EntityType>
         <Association Name="FK_UserMovies_Movies">
           <End Type="MovieRatingsModel.Movy" Role="Movy" Multiplicity="0..1">
@@ -277,6 +329,40 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="UserMovy">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MovieRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MovieRatingsModel.FK__MovieRate__UserI__04E4BC85" FromRole="MovieRate" ToRole="User" />
+          <NavigationProperty Name="Movy" Relationship="MovieRatingsModel.fk_teamPlayer__Team" FromRole="MovieRate" ToRole="Movy" />
+        </EntityType>
+        <Association Name="FK__MovieRate__UserI__04E4BC85">
+          <End Type="MovieRatingsModel.User" Role="User" Multiplicity="1" />
+          <End Type="MovieRatingsModel.MovieRate" Role="MovieRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieRate">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_teamPlayer__Team">
+          <End Type="MovieRatingsModel.Movy" Role="Movy" Multiplicity="1" />
+          <End Type="MovieRatingsModel.MovieRate" Role="MovieRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movy">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MovieRate">
               <PropertyRef Name="MovieId" />
             </Dependent>
           </ReferentialConstraint>
@@ -342,6 +428,15 @@
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="Ratings" ColumnName="Ratings" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieRates">
+            <EntityTypeMapping TypeName="MovieRatingsModel.MovieRate">
+              <MappingFragment StoreEntitySet="MovieRates">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

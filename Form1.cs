@@ -118,6 +118,17 @@ namespace RatingSystem
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     using (var db2 = new MovieRatingsEntities3())
                     {
+                        var movieId = record.ID;
+                        var userId = constant.LoggedUserId;
+                        if (db2.MovieRates.Any(x => x.UserId == userId && x.MovieId == movieId))
+                        {
+                            MessageBox.Show("Ester!");
+                            return;
+                        }
+
+                        db2.MovieRates.Add(new MovieRate() { UserId = userId, MovieId = movieId });
+                        db2.SaveChanges();
+
                         var currentMovie = db2.Movies.First(x => x.ID == record.ID);
                         var convertedRating = 0;
 
@@ -128,22 +139,9 @@ namespace RatingSystem
 
                         currentMovie.Ratings = (convertedRating + 1).ToString();
                         db2.SaveChanges();
-
                     }
                     UpdateDataIntoDatagrid();
                 }
-            }
-        }
-
-        public void dataGridView1_CellValueChanged(object sender,
-        DataGridViewCellEventArgs e)
-        {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "RateButton")
-            {
-                DataGridViewDisableButtonCell buttonCell = (DataGridViewDisableButtonCell)dataGridView1.
-                    Rows[e.RowIndex].Cells["Rate"];
-
-                dataGridView1.Invalidate();
             }
         }
         #endregion

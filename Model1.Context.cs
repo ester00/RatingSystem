@@ -31,5 +31,6 @@ namespace RatingSystem
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Movy> Movies { get; set; }
+        public virtual DbSet<MovieRate> MovieRates { get; set; }
     }
 }
