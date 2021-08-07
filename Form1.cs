@@ -113,8 +113,6 @@ namespace RatingSystem
 
             if (e.ColumnIndex == dataGridView1.Columns["RateButton"].Index)
             {
-                using (var db = new MovieRatingsEntities3())
-                {
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                     using (var db2 = new MovieRatingsEntities3())
                     {
@@ -141,7 +139,6 @@ namespace RatingSystem
                         db2.SaveChanges();
                     }
                     UpdateDataIntoDatagrid();
-                }
             }
         }
         #endregion
