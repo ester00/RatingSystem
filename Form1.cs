@@ -97,7 +97,7 @@ namespace RatingSystem
                     }
                     else
                     {
-                        MessageBox.Show("Да бе да,... не твой не барай!");
+                        MessageBox.Show("It's not your movie to edit!");
                     }
                 }
             }
@@ -120,7 +120,7 @@ namespace RatingSystem
                         var userId = constant.LoggedUserId;
                         if (db2.MovieRates.Any(x => x.UserId == userId && x.MovieId == movieId))
                         {
-                            MessageBox.Show("Ester!");
+                            MessageBox.Show("You've already voted for this movie!");
                             return;
                         }
 
@@ -268,7 +268,7 @@ namespace RatingSystem
                 }
                 else
                 {
-                    MessageBox.Show("Да бе да,... не твой не барай!");
+                    MessageBox.Show("It's not your movie to edit!");
                 }
             }
         }

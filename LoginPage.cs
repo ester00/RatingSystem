@@ -55,11 +55,16 @@ namespace RatingSystem
                 constant.RoleName = role.Role.Name;
 
                 this.Visible = false;
-                constant.UserName = user.Username;
-                constant.LoggedUserId = user.Id;
+                SetUserDetails(user);
                 Form1 f1 = new Form1(this, "User");
                 f1.ShowDialog();
             }
+        }
+
+        private static void SetUserDetails(User user)
+        {
+            constant.UserName = user.Username;
+            constant.LoggedUserId = user.Id;
         }
         #endregion
 
@@ -151,7 +156,7 @@ namespace RatingSystem
                             _db.UserRoles.Add(new UserRole() { RoleId = 2, UserId = userId });
                             _db.SaveChanges();
 
-                            constant.UserName = this.txtUsername.Text;
+                            SetUserDetails(new User() { Id = userId, Username = this.txtUsername.Text});
                             this.Visible = false;
                             Form1 f1 = new Form1(this, "User");
                             f1.ShowDialog();
